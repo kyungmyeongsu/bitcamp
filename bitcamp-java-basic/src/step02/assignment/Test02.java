@@ -18,6 +18,7 @@ public class Test02 {
             kor[i] = keyScan.nextInt();
             math[i] = keyScan.nextInt();
             eng[i] = keyScan.nextInt();
+            
             sum[i] = kor[i] + math[i] + eng[i];
             avg[i] = sum[i] / 3;
         }

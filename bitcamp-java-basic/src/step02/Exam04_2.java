@@ -3,12 +3,12 @@ package step02;
 public class Exam04_2 {
     public static void main(String[] args) {
         int i = 100;
-        byte b = 100;;
+        byte b = 100;
         
-        b = i;
+        // b = i;
 
         short s = 100;
-        s = i;
+        // s = i;
 
         int j = 100;
         j = i;
@@ -17,6 +17,6 @@ public class Exam04_2 {
         l = i;
 
         int k;
-        k = l;
+        // k = l;
     }
 }
