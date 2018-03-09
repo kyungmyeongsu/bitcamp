@@ -2,22 +2,15 @@ package step04;
 
 public class Exam04_1 {
     public static void main(String[] args) {
-        System.out.println(true && true);
-        System.out.println(true && false);
-        System.out.println(false && true);
-        System.out.println(false && false);
+        int i = 1;
+        System.out.println(i << 1);
+        System.out.println(i << 2);
+        System.out.println(i << 3);
+        System.out.println(i << 4);
 
-        System.out.println("-----------------------------");
-
-        System.out.println(true || true);
-        System.out.println(true || false);
-        System.out.println(false || true);
-        System.out.println(false || false);
-
-        System.out.println("-----------------------------");
-
-        System.out.println(!true);
-        System.out.println(!false);
-        
+        i = 0b0000_1011;
+        System.out.println(i << 1);
+        System.out.println(i << 2);
+        System.out.println(i << 3);
     }
 }
