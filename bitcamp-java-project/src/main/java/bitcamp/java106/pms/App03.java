@@ -32,7 +32,6 @@ public class App03 {
                 System.out.println("회원 조회 명령 : member/list");
                 System.out.println("회원 상세조회 명령 : member/view 아이디");
                 System.out.println("종료 : quit");
-                System.out.println();
             }
 
             else if(arr[0].toLowerCase().equals("team/add")) {
@@ -48,7 +47,6 @@ public class App03 {
                     System.out.print("종료일? ");
                     teams[count1].endDate = keyScan.nextLine();
                     count1++;
-                    System.out.println();
             }
 
             else if(arr[0].toLowerCase().equals("team/list")) {
@@ -58,22 +56,23 @@ public class App03 {
                     teams[j].teamName, teams[j].maxNum,
                     teams[j].startDate, teams[j].endDate);
                 }
-                System.out.println();
             }
 
             else if(arr[0].toLowerCase().equals("team/view")) {
                     if (arr.length > 1) {
-                        for (int j = 0; j < count1; j++) {
-                            if (arr[1].equals(teams[j].teamName)) {
+                        int j;
+                        for (j = 0; j < count1; j++) {
+                            if (arr[1].equals(teams[j].teamName.toLowerCase())) {
                                 System.out.println("팀명: " + teams[j].teamName);
                                 System.out.println("설명: " + teams[j].inform);
                                 System.out.println("최대인원: " + teams[j].maxNum);
                                 System.out.println("기간: " + teams[j].startDate + " ~ " + teams[j].endDate);
+                                break;
                             }
                         }
-                        // if (Arrays.equals(teams,arr) != true) {
+                        if (!arr[1].equals(teams[j].teamName)) {
                             System.out.println("해당 이름의 팀이 없습니다.");
-                        // }
+                        }
                         
                     }else {
                         System.out.println("팀명을 입력하시기 바랍니다.");
@@ -88,33 +87,33 @@ public class App03 {
                     System.out.print("암호? ");
                     members[count2].passwd = keyScan.nextInt();
                     keyScan.nextLine();
-                    System.out.println();
                     count2++;
             }
 
             else if(arr[0].toLowerCase().equals("member/list")) {
                 
-                for(int j = 0; j < count2; j++) {
+                for(int v = 0; v < count2; v++) {
                     System.out.printf("%s, %s, %d\n", 
-                    members[j].id, members[j].email, members[j].passwd);
+                    members[v].id, members[v].email, members[v].passwd);
                 }
-                System.out.println();
             }
 
             else if(arr[0].toLowerCase().equals("member/view")) {
-                for(int j = 0; j < count2; j++) {
-                    if (arr.length > 1) {
-                        if (arr[1].equals(members[j].id)) {
-                            System.out.println("아이디: " + members[j].id);
-                            System.out.println("이메일: " + members[j].email);
-                            System.out.println("암호: " + members[j].passwd);
+                if (arr.length > 1) {
+                    int v;
+                    for(v = 0; v < count2; v++) {
+                        if (arr[1].equals(members[v].id.toLowerCase())) {
+                            System.out.println("아이디: " + members[v].id);
+                            System.out.println("이메일: " + members[v].email);
+                            System.out.println("암호: " + members[v].passwd);
+                            break;
                         }
-                        if (!arr[1].equals(members[j].id)) {
-                            System.out.println("해당 아이디의 회원이 없습니다."); 
-                        }
-                    }else {
-                        System.out.println("아이디를 입력하시기 바랍니다.");
                     }
+                    if (!arr[1].equals(members[v].id)) {
+                        System.out.println("해당 아이디의 회원이 없습니다.");
+                    }
+                }else {
+                    System.out.println("아이디를 입력하시기 바랍니다.");
                 }
             }
 
@@ -125,9 +124,9 @@ public class App03 {
 
             else{
                 System.out.println("명령어가 올바르지 않습니다.");
-                System.out.println();
             }
 
+            System.out.println();
         }
         
     }
