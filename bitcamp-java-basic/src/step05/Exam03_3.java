@@ -8,7 +8,8 @@ public class Exam03_3 {
         int x = 2, y = 1;
         
         // 5 * 5 까지만 출력한다.
-        myloop: while (x <= 9) {
+        myloop: 
+        while (x <= 9) {
             while (y <= 9) {
                 System.out.printf("%d * %d = %d\n", x, y, x * y);
 
