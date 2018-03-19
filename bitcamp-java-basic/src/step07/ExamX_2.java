@@ -2,7 +2,7 @@
 
 package step07;
 
-public class Exam02_1 {
+public class ExamX_2 {
     public static void main(String[] args) {
         // 사용자 정의 데이터 타입의 값을 연산자를 사용하여 다뤄 보자!
         Score2 score = new Score2();
