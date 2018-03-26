@@ -1,18 +1,23 @@
 // 게시판 관련 기능을 모아 둔 클래스
 package bitcamp.java106.pms.controller;
 
+import java.sql.Date;
 import java.util.Scanner;
 
+import bitcamp.java106.pms.dao.BoardDao;
 import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.util.Console;
 
 public class BoardController {
     // 이 클래스를 사용하기 전에 App 클래스에서 준비한 Scanner 객체를
     // keyScan 변수에 저장하라!
-    public Scanner keyScan;
-
-    Board[] boards = new Board[1000];
-    int boardIndex = 0;
+    Scanner keyScan;
+    
+    BoardDao boardDao = new BoardDao();
+    
+    public BoardController(Scanner scanner) {
+        this.keyScan = scanner;
+    }
 
     public void service(String menu, String option) {
         if (menu.equals("board/add")) {
@@ -35,23 +40,24 @@ public class BoardController {
         Board board = new Board();
 
         System.out.print("제목? ");
-        board.title = this.keyScan.nextLine();
+        board.setTitle(this.keyScan.nextLine());
 
         System.out.print("내용? ");
-        board.content = this.keyScan.nextLine();
+        board.setContent(this.keyScan.nextLine());
 
         System.out.print("등록일? ");
-        board.createdDate = this.keyScan.nextLine();
+        board.setCreatedDate(Date.valueOf(this.keyScan.nextLine()));
 
-        this.boards[this.boardIndex++] = board;
+        boardDao.insert(board);
     }
 
     void onBoardList() {
         System.out.println("[게시물 목록]");
-        for (int i = 0; i < this.boardIndex; i++) {
-            if (this.boards[i] == null) continue;
+        Board[] list = boardDao.list();
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == null) continue;
             System.out.printf("%d, %s, %s\n",
-                i, this.boards[i].title, this.boards[i].createdDate);
+                i, list[i].getTitle(), list[i].getCreatedDate());
         }
     }
 
@@ -62,15 +68,14 @@ public class BoardController {
             return;
         }
         
-        int i = Integer.parseInt(option);
+        Board board = boardDao.get(Integer.parseInt(option));
         
-        if (i < 0 || i >= this.boardIndex) {
+        if (board == null) {
             System.out.println("유효하지 않은 게시물 번호입니다.");
         } else {
-            Board board = this.boards[i];
-            System.out.printf("팀명: %s\n", board.title);
-            System.out.printf("설명: %s\n", board.content);
-            System.out.printf("등록일: %s\n", board.createdDate);
+            System.out.printf("팀명: %s\n", board.getTitle());
+            System.out.printf("설명: %s\n", board.getContent());
+            System.out.printf("등록일: %s\n", board.getCreatedDate());
         }
     }
 
@@ -81,19 +86,19 @@ public class BoardController {
             return;
         }
         
-        int i = Integer.parseInt(option);
+        Board board = boardDao.get(Integer.parseInt(option));
         
-        if (i < 0 || i >= this.boardIndex) {
+        if (board == null) {
             System.out.println("유효하지 않은 게시물 번호입니다.");
         } else {
-            Board board = this.boards[i];
             Board updateBoard = new Board();
-            System.out.printf("제목(%s)? ", board.title);
-            updateBoard.title = this.keyScan.nextLine();
-            System.out.printf("설명(%s)? ", board.content);
-            updateBoard.content = this.keyScan.nextLine();
-            updateBoard.createdDate = board.createdDate;
-            this.boards[i] = updateBoard;
+            System.out.printf("제목(%s)? ", board.getTitle());
+            updateBoard.setTitle(this.keyScan.nextLine());
+            System.out.printf("설명(%s)? ", board.getContent());
+            updateBoard.setContent(this.keyScan.nextLine());
+            updateBoard.setCreatedDate(board.getCreatedDate());
+            updateBoard.setNo(board.getNo());
+            boardDao.update(updateBoard);
             System.out.println("변경하였습니다.");
         }
     }
@@ -106,12 +111,13 @@ public class BoardController {
         }
         
         int i = Integer.parseInt(option);
+        Board board = boardDao.get(i);
         
-        if (i < 0 || i >= this.boardIndex) {
+        if (board == null) {
             System.out.println("유효하지 않은 게시물 번호입니다.");
         } else {
             if (Console.confirm("정말 삭제하시겠습니까?")) {
-                this.boards[i] = null;
+                boardDao.delete(i);
                 System.out.println("삭제하였습니다.");
             }
         }
