@@ -9,6 +9,7 @@ import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.util.Console;
 
 public class TeamController {
+
     Scanner keyScan;
     TeamDao teamDao;
     
@@ -16,7 +17,6 @@ public class TeamController {
         this.keyScan = scanner;
         this.teamDao = teamDao;
     }
-    
 
     public void service(String menu, String option) {
         if (menu.equals("team/add")) {
@@ -140,5 +140,7 @@ public class TeamController {
     
 }
 
-//ver 14 - TeamDao를 사용하여 팀 데이터를 관리한다.
+//ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
+// ver 15 - TeamDao를 생성자에서 주입 받도록 변경.
+// ver 14 - TeamDao를 사용하여 팀 데이터를 관리한다.
 // ver 13 - 시작일, 종료일을 문자열로 입력 받아 Date 객체로 변환하여 저장.

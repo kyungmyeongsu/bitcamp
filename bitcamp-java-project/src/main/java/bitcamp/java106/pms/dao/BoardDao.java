@@ -10,13 +10,12 @@ public class BoardDao {
         board.setNo(boardIndex);
         this.boards[this.boardIndex++] = board;
     }
-
+    
     public Board[] list() {
         Board[] arr = new Board[boardIndex];
-        for (int i = 0; i < boardIndex; i++) {
+        for (int i = 0; i < boardIndex; i++) 
             arr[i] = boards[i];
-        }
-        return boards;
+        return arr;
     }
     
     public Board get(int i) {
@@ -33,3 +32,11 @@ public class BoardDao {
         boards[i] = null;
     }
 }
+
+// ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
+// ver 14 - BoardController로부터 데이터 관리 기능을 분리하여 BoardDao 생성.
+
+
+
+
+

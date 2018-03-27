@@ -1,16 +1,15 @@
 // 이 클래스는 회원 관련 기능을 모두 둔 클래스이다.
 package bitcamp.java106.pms.controller;
 
-import bitcamp.java106.pms.dao.MemberDao;
-import bitcamp.java106.pms.dao.TeamDao;
-import bitcamp.java106.pms.domain.Member;
-import bitcamp.java106.pms.util.Console;
 import java.util.Scanner;
 
+import bitcamp.java106.pms.dao.MemberDao;
+import bitcamp.java106.pms.domain.Member;
+import bitcamp.java106.pms.util.Console;
+
 public class MemberController {
-    // 이 클래스를 사용하려면 keyboard 스캐너가 있어야 한다.
-    // 이 클래스를 사용하기 전에 스캐너를 설정하라!
     Scanner keyScan;
+
     MemberDao memberDao;
     
     public MemberController(Scanner scanner, MemberDao memberDao) {
@@ -34,8 +33,6 @@ public class MemberController {
         }
     }
 
-    
-
     void onMemberAdd() {
         System.out.println("[회원 정보 입력]");
         Member member = new Member();
@@ -49,7 +46,6 @@ public class MemberController {
         System.out.print("암호? ");
         member.setPassword(this.keyScan.nextLine());
 
-        // 회원 정보가 담겨있는 객체의 주소를 배열에 보관한다.
         memberDao.insert(member);
     }
 
@@ -59,7 +55,7 @@ public class MemberController {
         for (int i = 0; i < list.length; i++) {
             if (list[i] == null) continue;
             System.out.printf("%s, %s, %s\n", 
-                    list[i].getId(), list[i].getEmail(), list[i].getPassword());
+                list[i].getId(), list[i].getEmail(), list[i].getPassword());
         }
     }
 
@@ -125,6 +121,8 @@ public class MemberController {
         }
     }
     
-    
-    
 }
+
+//ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
+// ver 15 - MemberDao를 생성자에서 주입 받도록 변경.
+// ver 14 - MemberDao를 사용하여 회원 데이터를 관리한다.
