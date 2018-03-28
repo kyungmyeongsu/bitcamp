@@ -31,11 +31,7 @@ public class ArrayList {
     
     public void add(Object value) {
         if (cursor >= list.length) {
-            Object[] list2 = new Object[list.length + DEFAULT_CAPACITY];
-            for (int i = 0 ; i < list.length; i++) {
-                list2[i] = list[i];
-            }
-            list = list2;
+            this.increaseArray();
         }
         list[cursor++] = value;
     }
@@ -63,11 +59,24 @@ public class ArrayList {
         if (index < 0 || index >= cursor) {
             return;
         }
+        
+        if (cursor >= list.length) {
+            this.increaseArray();
+        }
+        
         for (int i = cursor - 1; i >= index; i--) {
             list[i + 1] = list[i];
         }
         list[index] = value;
         cursor++;
+    }
+    
+    private void increaseArray() {
+        Object[] list2 = new Object[list.length + DEFAULT_CAPACITY];
+        for (int i = 0 ; i < list.length; i++) {
+            list2[i] = list[i];
+        }
+        list = list2;
     }
     
     public int size() {
