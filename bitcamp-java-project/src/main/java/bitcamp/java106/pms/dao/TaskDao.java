@@ -36,7 +36,7 @@ public class TaskDao {
     public Task get(String teamName, int taskNo) {
         for (int i = 0; i < taskIndex; i++) {
             if (tasks[i] == null) continue;
-            if (tasks[i].getTeam().getName().toLowerCase().equals(teamName) &&
+            if (tasks[i].getTeam().getName().toLowerCase().equals(teamName) && 
                 tasks[i].getNo() == taskNo) {
                 return tasks[i];
             }
@@ -54,4 +54,8 @@ public class TaskDao {
 }
 
 // ver 17 - 클래스 생성
+
+
+
+
 

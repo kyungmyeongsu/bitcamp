@@ -27,15 +27,12 @@ public class Task {
         this.state = READY;
     }
     
-    
     public int getNo() {
         return no;
     }
-
     public void setNo(int no) {
         this.no = no;
     }
-
     public int getState() {
         return state;
     }
@@ -63,8 +60,8 @@ public class Task {
     public Date getStartDate() {
         return startDate;
     }
-    public void setStartDate(Date starDate) {
-        this.startDate = starDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
     public Date getEndDate() {
         return endDate;
@@ -78,9 +75,10 @@ public class Task {
         return "Task [title=" + title + ", startDate=" + startDate + ", endDate=" + endDate + ", state=" + state
                 + ", worker=" + worker + ", team=" + team + "]";
     }
-    
-    
 }
 
+//ver 17 - 사용자 정의 데이터 타입 생성
 
-// ver 17 - 사용자 정의 데이터 타입 생성
+
+
+
