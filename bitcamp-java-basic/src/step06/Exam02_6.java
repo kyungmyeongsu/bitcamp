@@ -34,7 +34,7 @@ public class Exam02_6 {
         hello(arr);
         System.out.println("----------------------");
 
-        hello2("홍길동", "임꺽정", "유관순");
+//        hello2("홍길동", "임꺽정", "유관순");
 
         System.out.println("----------------------");
 

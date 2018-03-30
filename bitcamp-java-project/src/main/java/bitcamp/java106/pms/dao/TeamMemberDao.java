@@ -6,15 +6,12 @@ public class TeamMemberDao {
     private ArrayList teamCollection = new ArrayList();
     private ArrayList memberCollection = new ArrayList();
     
-//    private Object[][] teamMembers = new Object[1000][2];
-//    private int rowIndex;
-    
     private int getIndex(String teamName, String memberId) {
         String ptn = teamName.toLowerCase();
         String pmi = memberId.toLowerCase();
         for (int i = 0; i < this.teamCollection.size(); i++) {
-            String tn = ((String)this.teamCollection.get(i)).toLowerCase();
-            String mi = ((String)this.memberCollection.get(i)).toLowerCase();
+            String tn = this.teamCollection.get(i).toString().toLowerCase();
+            String mi = this.memberCollection.get(i).toString().toLowerCase();
             if (tn.equals(ptn) && mi.equals(pmi)) {
                 return i;
             }
@@ -54,7 +51,7 @@ public class TeamMemberDao {
         int cnt = 0;
         String ptn = teamName.toLowerCase();
         for (int i = 0; i < this.teamCollection.size(); i++) {
-            String tn = ((String)this.teamCollection.get(i)).toLowerCase();
+            String tn = this.teamCollection.get(i).toString().toLowerCase();
             if (tn.equals(ptn)) {
                 cnt++;
             }

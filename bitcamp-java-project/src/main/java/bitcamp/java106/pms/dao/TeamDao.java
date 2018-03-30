@@ -27,25 +27,20 @@ public class TeamDao {
     }
     
     public void update(Team team) {
-        int index = getTeamIndex(team.getName());
-        if (index < 0) {
-            return;
-        }
-        collection.set(index, team);
+        int i;
+        if ((i = this.getTeamIndex(team.getName())) != -1)
+            collection.set(i, team);
     }
     
     public void delete(String name) {
-        int index = getTeamIndex(name);
-        if (index < 0) {
-            return;
-        }
-        collection.remove(index);
+        int i;
+        if ((i = this.getTeamIndex(name)) != -1)
+            collection.remove(i);
     }
     
     private int getTeamIndex(String name) {
         for (int i = 0; i < this.collection.size(); i++) {
-            Team originTeam = (Team)collection.get(i);
-            if (originTeam.getName().toLowerCase().equals(name.toLowerCase())) {
+            if (name.toLowerCase().equals(((Team)collection.get(i)).getName().toLowerCase())) {
                 return i;
             }
         }
