@@ -7,7 +7,7 @@ import bitcamp.java106.pms.dao.ClassroomDao;
 import bitcamp.java106.pms.domain.Classroom;
 import bitcamp.java106.pms.util.Console;
 
-public class ClassroomController {
+public class ClassroomController implements Controller{
     Scanner keyScan;
 
     ClassroomDao classroomDao = new ClassroomDao();
@@ -41,10 +41,10 @@ public class ClassroomController {
 
         System.out.print("종료일? ");
         classroom.setEndDate(Date.valueOf(this.keyScan.nextLine()));
-        
+
         System.out.print("교실명? ");
         classroom.setRoom(this.keyScan.nextLine());
-
+        
         classroomDao.insert(classroom);
     }
 
@@ -53,13 +53,11 @@ public class ClassroomController {
         Classroom[] list = classroomDao.list();
         for (Classroom classroom : list) {
             System.out.printf("%d, %s, %s ~ %s, %s\n",
-                    classroom.getNo(), classroom.getTitle(), 
-                    classroom.getStartDate(), classroom.getEndDate(),
-                    classroom.getRoom());
+                classroom.getNo(), classroom.getTitle(), 
+                classroom.getStartDate(), classroom.getEndDate(),
+                classroom.getRoom());
         }
     }
-
-    
 
     void onUpdate(String option) {
         System.out.println("[수업 정보 변경]");
@@ -78,52 +76,48 @@ public class ClassroomController {
             return;
         } 
         
-            Classroom updateClassroom = new Classroom();
-            updateClassroom.setNo(classroom.getNo());
-            System.out.printf("수업명(%s)? ", classroom.getTitle());
-            str = this.keyScan.nextLine();
-            if(str.length() == 0)
-                updateClassroom.setTitle(classroom.getTitle());
-            else
-                updateClassroom.setTitle(str);
-            
-            System.out.printf("시작일(%s)? ", classroom.getStartDate());
-            str = this.keyScan.nextLine();
-            if(str.length() == 0)
-                updateClassroom.setStartDate(classroom.getStartDate());
-            else
-                updateClassroom.setStartDate(Date.valueOf(str));
-            
-            System.out.printf("종료일(%s)? ", classroom.getEndDate());
-            str = this.keyScan.nextLine();
-            if(str.length() == 0)
-                updateClassroom.setEndDate(classroom.getEndDate());
-            else
-                updateClassroom.setEndDate(Date.valueOf(str));
-            
-            System.out.printf("교실명(%s)? ", classroom.getRoom());
-            str = this.keyScan.nextLine();
-            if(str.length() == 0)
-                updateClassroom.setRoom(classroom.getRoom());
-            else
-                updateClassroom.setRoom(str);
-            
-            if (Console.confirm("변경하시겠습니까?")) {
-                classroomDao.update(updateClassroom);
-                System.out.println("변경하였습니다.");
-            } else {
-                System.out.println("취소하였습니다.");
-            }
-            
-            
-            
+        Classroom updateClassroom = new Classroom();
+        updateClassroom.setNo(classroom.getNo());
         
+        System.out.printf("수업명(%s)? ", classroom.getTitle());
+        str = this.keyScan.nextLine();
+        if (str.length() == 0)
+            updateClassroom.setTitle(classroom.getTitle());
+        else 
+            updateClassroom.setTitle(str);
+        
+        System.out.printf("시작일(%s)? ", classroom.getStartDate());
+        str = this.keyScan.nextLine();
+        if (str.length() == 0)
+            updateClassroom.setStartDate(classroom.getStartDate());
+        else 
+            updateClassroom.setStartDate(Date.valueOf(str));
+        
+        System.out.printf("종료일(%s)? ", classroom.getEndDate());
+        str = this.keyScan.nextLine();
+        if (str.length() == 0)
+            updateClassroom.setEndDate(classroom.getEndDate());
+        else 
+            updateClassroom.setEndDate(Date.valueOf(str));
+        
+        System.out.printf("교실명(%s)? ", classroom.getRoom());
+        str = this.keyScan.nextLine();
+        if (str.length() == 0)
+            updateClassroom.setRoom(classroom.getRoom());
+        else 
+            updateClassroom.setRoom(str);
+        
+        if (Console.confirm("변경하시겠습니까?")) {
+            classroomDao.update(updateClassroom);
+            System.out.println("변경하였습니다.");
+        } else {
+            System.out.println("취소하였습니다.");
+        }
     }
 
-    
     void onDelete(String option) {
         System.out.println("[수업 정보 삭제]");
-        
+
         System.out.print("삭제할 수업 번호? ");
         String str = keyScan.nextLine();
         if (str.length() == 0) {
@@ -143,10 +137,7 @@ public class ClassroomController {
             }
         }
     }
-    
+
 }
 
-// ver 20 - 클래스 추가
-// ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
-// ver 14 - ClassroomDao를 사용하여 게시물 데이터를 관리한다.
-// ver 13 - 게시물 등록할 때 등록일의 문자열을 Date 객체로 만들어 저장.
+//ver 20 - 클래스 추가

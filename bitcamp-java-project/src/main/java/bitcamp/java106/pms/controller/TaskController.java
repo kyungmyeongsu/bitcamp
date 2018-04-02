@@ -12,7 +12,7 @@ import bitcamp.java106.pms.domain.Task;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.util.Console;
 
-public class TaskController {
+public class TaskController implements Controller{
     
     Scanner keyScan;
     TeamDao teamDao;
@@ -270,4 +270,5 @@ public class TaskController {
     }
 }
 
+//ver 18 - ArrayList가 적용된 TaskDao를 사용한다.
 //ver 17 - 클래스 생성

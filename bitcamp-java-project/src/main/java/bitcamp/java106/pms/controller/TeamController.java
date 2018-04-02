@@ -8,7 +8,7 @@ import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.util.Console;
 
-public class TeamController {
+public class TeamController implements Controller{
 
     Scanner keyScan;
     TeamDao teamDao;
@@ -139,6 +139,7 @@ public class TeamController {
     
 }
 
+//ver 18 - ArrayList가 적용된 TeamDao를 사용한다.
 //ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
 // ver 15 - TeamDao를 생성자에서 주입 받도록 변경.
 // ver 14 - TeamDao를 사용하여 팀 데이터를 관리한다.
