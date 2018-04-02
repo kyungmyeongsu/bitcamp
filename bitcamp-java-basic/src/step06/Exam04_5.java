@@ -15,4 +15,3 @@ public class Exam04_5 {
     }
 }
 
-package bitcamp.java106.pms;
