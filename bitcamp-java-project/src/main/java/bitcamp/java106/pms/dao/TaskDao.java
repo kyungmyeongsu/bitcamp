@@ -1,10 +1,11 @@
 package bitcamp.java106.pms.dao;
 
+import java.util.LinkedList;
+
 import bitcamp.java106.pms.domain.Task;
-import bitcamp.java106.pms.util.ArrayList;
 
 public class TaskDao {
-    private ArrayList collection = new ArrayList();
+    private LinkedList<Task> collection = new LinkedList();
     
     public void insert(Task task) {
         this.collection.add(task);
@@ -13,7 +14,7 @@ public class TaskDao {
     private int count(String teamName) {
         int cnt = 0;
         for (int i = 0; i < this.collection.size(); i++) {
-            Task task = (Task)collection.get(i);
+            Task task = collection.get(i);
             if (task.getTeam().getName().toLowerCase().equals(teamName.toLowerCase())) {
                 cnt++;
             }
@@ -24,7 +25,7 @@ public class TaskDao {
     public Task[] list(String teamName) {
         Task[] arr = new Task[this.count(teamName)];
         for (int i = 0, x = 0; i < collection.size(); i++) {
-            Task task = (Task)collection.get(i);
+            Task task = collection.get(i);
             if (task.getTeam().getName().toLowerCase().equals(teamName.toLowerCase())) {
                 arr[x++] = task;
             }
@@ -37,7 +38,7 @@ public class TaskDao {
         if (index < 0) {
             return null;
         }
-        return (Task)collection.get(index);
+        return collection.get(index);
     }
     
     public void update(Task task) {
@@ -58,7 +59,7 @@ public class TaskDao {
     
     private int getTaskIndex(int taskNo) {
         for (int i = 0 ; i < collection.size() ; i++) {
-            Task task = (Task)collection.get(i);
+            Task task = collection.get(i);
             if (task.getNo() == taskNo) {
                 return i;
             }
