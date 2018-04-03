@@ -9,7 +9,8 @@ public class TeamDao extends AbstractDao<Team>{
     public int indexOf(Object key) {
         String name = (String)key;
         for (int i = 0; i < collection.size(); i++) {
-            if (name.equalsIgnoreCase(collection.get(i).getName())) {
+            if (name.toLowerCase().equals(
+                   collection.get(i).getName().toLowerCase())) {
                 return i;
             }
         }

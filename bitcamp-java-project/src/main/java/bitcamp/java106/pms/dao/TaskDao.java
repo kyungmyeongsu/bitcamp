@@ -8,6 +8,7 @@ import bitcamp.java106.pms.domain.Task;
 
 public class TaskDao extends AbstractDao<Task>{
     
+    
     public Iterator<Task> list(String teamName) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (Task task : collection) {
