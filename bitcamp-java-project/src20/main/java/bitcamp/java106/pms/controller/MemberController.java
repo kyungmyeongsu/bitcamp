@@ -1,14 +1,13 @@
 // 이 클래스는 회원 관련 기능을 모두 둔 클래스이다.
 package bitcamp.java106.pms.controller;
 
-import java.util.Iterator;
 import java.util.Scanner;
 
 import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.util.Console;
 
-public class MemberController implements Controller{
+public class MemberController {
     Scanner keyScan;
 
     MemberDao memberDao;
@@ -52,11 +51,10 @@ public class MemberController implements Controller{
 
     void onMemberList() {
         System.out.println("[회원 목록]");
-        Iterator<Member> iterator = memberDao.list();
-        while (iterator.hasNext()) {
-            Member member = iterator.next();
+        Member[] list = memberDao.list();
+        for (int i = 0; i < list.length; i++) {
             System.out.printf("%s, %s, %s\n", 
-                    member.getId(), member.getEmail(), member.getPassword());
+                list[i].getId(), list[i].getEmail(), list[i].getPassword());
         }
     }
 
@@ -98,8 +96,7 @@ public class MemberController implements Controller{
             System.out.printf("암호? ");
             updateMember.setPassword(this.keyScan.nextLine());
             
-            int index = memberDao.indexOf(member.getId());
-            memberDao.update(index, updateMember);
+            memberDao.update(updateMember);
             System.out.println("변경하였습니다.");
         }
     }
