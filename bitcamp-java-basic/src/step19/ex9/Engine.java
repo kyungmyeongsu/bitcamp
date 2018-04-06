@@ -1,5 +1,6 @@
-package step19.ex8;
+package step19.ex9;
 
+@Component
 public class Engine {
     
     public Engine() {
