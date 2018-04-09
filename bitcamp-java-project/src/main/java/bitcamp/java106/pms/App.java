@@ -12,6 +12,8 @@ import bitcamp.java106.pms.controller.MemberController;
 import bitcamp.java106.pms.controller.TaskController;
 import bitcamp.java106.pms.controller.TeamController;
 import bitcamp.java106.pms.controller.TeamMemberController;
+import bitcamp.java106.pms.dao.BoardDao;
+import bitcamp.java106.pms.dao.ClassroomDao;
 import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamDao;
@@ -28,6 +30,16 @@ public class App {
     
     static void onQuit() {
         System.out.println("안녕히 가세요!");
+        BoardDao boardDao = (BoardDao) iocContainer.getBean(BoardDao.class);
+        ClassroomDao classroomDao = (ClassroomDao) iocContainer.getBean(ClassroomDao.class);
+        try {
+            boardDao.save();
+            classroomDao.save();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("게시물 데이터 저장 중 오류 발생!");
+        }
+        
     }
 
     static void onHelp() {

@@ -1,10 +1,39 @@
 package bitcamp.java106.pms.dao;
 
+import java.io.FileReader;
+import java.sql.Date;
+import java.util.Scanner;
+
 import bitcamp.java106.pms.annotation.Component;
+import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.domain.Member;
 
 @Component
 public class MemberDao extends AbstractDao<Member>{
+    
+    public MemberDao() throws Exception {
+        load();
+    }
+    
+    public void load() throws Exception {
+        Scanner in = new Scanner(new FileReader("data/member.csv"));
+        while (true) {
+            try {
+                String[] arr = in.nextLine().split(",");
+                Member member = new Member();
+                member.setId(arr[0]);
+                member.setEmail(arr[1]);
+                member.setPassword(arr[2]);
+            } catch (Exception e){
+                break;
+            }
+        }
+    }
+    
+    public void save() throws Exception {
+        
+    }
+    
     // 다음 메서드는 내부에서만 사용할 것이기 때문에 공개하지 않는다.
     public int indexOf(Object key) {
         String id = (String)key;
