@@ -3,7 +3,7 @@ package step21.ex3;
 
 public class Exam02_2 {
     
-    static void m() throws Throwable {
+    static void m() throws RuntimeException {
         throw new RuntimeException();
     }
     
