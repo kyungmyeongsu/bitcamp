@@ -15,7 +15,7 @@ public class DataOutputStream extends FileOutputStream {
         this.write(bytes);
     }
     
-    public void witeInt(int value) throws Exception{
+    public void writeInt(int value) throws Exception{
      // 상속받은 write() 메서드를 사용하여 Int 값 출력
         this.write(value >> 24);
         this.write(value >> 16);

@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 
 public class Exam02_1 {
     public static void main(String[] args) throws Exception{
-        DataOutputStream out = new DataOutputStream("temp/test4.data");
+        DataOutputStream out = new DataOutputStream("temp/test4_2.data");
         
         Member member = new Member();
         member.name = "AB가각간";
