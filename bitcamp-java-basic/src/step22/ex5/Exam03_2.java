@@ -6,8 +6,8 @@ import java.io.FileOutputStream;
 
 public class Exam03_2 {
     public static void main(String[] args) throws Exception{
-        BufferdInputStream in = new BufferdInputStream("temp/jls8.pdf");
-        BufferdOutputStream out = new BufferdOutputStream("temp/jls8_4.pdf");
+        BufferedInputStream in = new BufferedInputStream("temp/jls8.pdf");
+        BufferedOutputStream out = new BufferedOutputStream("temp/jls8_4.pdf");
         
         int b;
         

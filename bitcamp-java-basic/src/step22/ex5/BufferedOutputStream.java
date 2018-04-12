@@ -3,11 +3,11 @@ package step22.ex5;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class BufferdOutputStream extends FileOutputStream {
+public class BufferedOutputStream extends FileOutputStream {
     byte[] buf = new byte[8196];
     int cursor;
     
-    public BufferdOutputStream(String filename) throws Exception{
+    public BufferedOutputStream(String filename) throws Exception{
         super(filename);
     }
     

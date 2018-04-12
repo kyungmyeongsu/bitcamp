@@ -3,7 +3,7 @@ package step22.ex5;
 
 public class Exam03_1 {
     public static void main(String[] args) throws Exception{
-        BufferdInputStream in = new BufferdInputStream("temp/jls8.pdf");
+        BufferedInputStream in = new BufferedInputStream("temp/jls8.pdf");
         
         int b;
         
