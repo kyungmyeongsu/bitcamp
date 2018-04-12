@@ -1,24 +1,27 @@
-// 버퍼 사용 전 - 데이터 읽는데 걸린 시간
+//  - 파일 복사 및 시간 측정
 package step22.ex5;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
-public class Exam01_1 {
+public class Exam03_2 {
     public static void main(String[] args) throws Exception{
-        FileInputStream in = new FileInputStream("temp/jls8.pdf");
+        BufferdInputStream in = new BufferdInputStream("temp/jls8.pdf");
+        BufferdOutputStream out = new BufferdOutputStream("temp/jls8_4.pdf");
         
         int b;
         
         long startTime = System.currentTimeMillis(); // 밀리초
         
-        int callCount = 0;
-        while ((b = in.read()) != -1) callCount++;
+        while ((b = in.read()) != -1) {
+            out.write(b);
+        }
         
         long endTime = System.currentTimeMillis();
         
         System.out.println(endTime - startTime);
-        System.out.println(callCount);
         
         in.close();
+        out.close();
     }
 }
