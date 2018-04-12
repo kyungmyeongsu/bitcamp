@@ -13,7 +13,9 @@ public class Exam02_1 {
         
         long startTime = System.currentTimeMillis(); // 밀리초
         
-        while ((b = in.read()) != -1);
+        while ((b = in.read()) != -1) {
+            out.write(b);
+        }
         
         long endTime = System.currentTimeMillis();
         
