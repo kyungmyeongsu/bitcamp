@@ -54,7 +54,7 @@ public class HTTPServer {
                 firstLine = false;
             }
             
-            // AppContainer에게 실행을 요청한다.
+            // AppContainer에게 실행을 위임한다.
             String result = applicationContainer.execute(requestURI);
             
             // HTTP 프로토콜에 따라 응답한다.
