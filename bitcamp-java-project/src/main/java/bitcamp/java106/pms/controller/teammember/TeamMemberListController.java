@@ -1,60 +1,54 @@
 // Controller 규칙에 따라 메서드 작성
 package bitcamp.java106.pms.controller.teammember;
 
+import java.io.PrintWriter;
 import java.util.Iterator;
-import java.util.Scanner;
 
 import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
-import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
-import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Team;
+import bitcamp.java106.pms.server.ServerRequest;
+import bitcamp.java106.pms.server.ServerResponse;
 
-@Component("team/member/list")
+@Component("/team/member/list")
 public class TeamMemberListController implements Controller {
     
-    Scanner keyScan;
     TeamDao teamDao;
-    MemberDao memberDao;
     TeamMemberDao teamMemberDao;
     
-    public TeamMemberListController(Scanner scanner, TeamDao teamDao, 
-            MemberDao memberDao, TeamMemberDao teamMemberDao) {
-        this.keyScan = scanner;
+    public TeamMemberListController(
+            TeamDao teamDao, 
+            TeamMemberDao teamMemberDao) {
         this.teamDao = teamDao;
-        this.memberDao = memberDao;
         this.teamMemberDao = teamMemberDao;
     }
     
-    public void service(String menu, String option) {
-        
-        if (option == null) {
-            System.out.println("팀명을 입력하시기 바랍니다.");
-            return; 
-        }
-        
-        Team team = teamDao.get(option);
+    @Override
+    public void service(ServerRequest request, ServerResponse response) {
+        PrintWriter out = response.getWriter();
+        String teamName = request.getParameter("teamName");
+        Team team = teamDao.get(teamName);
         if (team == null) {
-            System.out.printf("%s 팀은 존재하지 않습니다.", option);
+            out.printf("%s 팀은 존재하지 않습니다.\n", teamName);
             return;
         }
 
-        System.out.println("[팀 멤버 목록]");
-        System.out.print("회원들: ");
+        out.print("회원들: ");
         
-        Iterator<String> iterator = teamMemberDao.getMembers(option);
+        Iterator<String> iterator = teamMemberDao.getMembers(teamName);
         if (iterator != null) {
             while (iterator.hasNext()) {
-                System.out.printf("%s, ", iterator.next());
+                out.printf("%s, ", iterator.next());
             }
         }
-        System.out.println();
+        out.println();
     }
-
 }
 
+//ver 28 - 네트워크 버전으로 변경
+//ver 26 - TeamMemberController에서 list() 메서드를 추출하여 클래스로 정의.
 //ver 23 - @Component 애노테이션을 붙인다.
 //ver 18 - ArrayList가 적용된 TeamMemberDao를 사용한다.
 //ver 17 - TeamMemberDao 클래스를 사용하여 팀 멤버의 아이디를 관리한다.

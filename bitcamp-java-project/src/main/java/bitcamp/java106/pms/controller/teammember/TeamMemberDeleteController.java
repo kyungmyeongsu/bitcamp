@@ -1,61 +1,50 @@
 // Controller 규칙에 따라 메서드 작성
 package bitcamp.java106.pms.controller.teammember;
 
-import java.util.Iterator;
-import java.util.Scanner;
+import java.io.PrintWriter;
 
 import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
-import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
-import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Team;
+import bitcamp.java106.pms.server.ServerRequest;
+import bitcamp.java106.pms.server.ServerResponse;
 
-@Component("team/member/delete")
+@Component("/team/member/delete")
 public class TeamMemberDeleteController implements Controller {
     
-    Scanner keyScan;
     TeamDao teamDao;
-    MemberDao memberDao;
     TeamMemberDao teamMemberDao;
     
-    public TeamMemberDeleteController(Scanner scanner, TeamDao teamDao, 
-            MemberDao memberDao, TeamMemberDao teamMemberDao) {
-        this.keyScan = scanner;
+    public TeamMemberDeleteController(
+            TeamDao teamDao, 
+            TeamMemberDao teamMemberDao) {
         this.teamDao = teamDao;
-        this.memberDao = memberDao;
         this.teamMemberDao = teamMemberDao;
     }
     
-    public void service(String menu, String option) {
-        
-        if (option == null) {
-            System.out.println("팀명을 입력하시기 바랍니다.");
-            return; 
-        }
-        
-        Team team = teamDao.get(option);
+    @Override
+    public void service(ServerRequest request, ServerResponse response) {
+        PrintWriter out = response.getWriter();
+        String teamName = request.getParameter("teamName");
+        Team team = teamDao.get(teamName);
         if (team == null) {
-            System.out.printf("%s 팀은 존재하지 않습니다.", option);
+            out.printf("%s 팀은 존재하지 않습니다.\n", teamName);
             return;
         }
-        
-        System.out.print("삭제할 팀원은? ");
-        String memberId = keyScan.nextLine();
-        
-        if (!teamMemberDao.isExist(option, memberId)) {
-            System.out.println("이 팀의 회원이 아닙니다.");
+        String memberId = request.getParameter("memberId");
+        if (!teamMemberDao.isExist(teamName, memberId)) {
+            out.println("이 팀의 회원이 아닙니다.");
             return;
         }
-
-        teamMemberDao.deleteMember(option, memberId);
-        
-        System.out.println("[팀 멤버 삭제]");
-        System.out.println("삭제하였습니다.");
+        teamMemberDao.deleteMember(teamName, memberId);
+        out.println("팀에서 회원을 삭제하였습니다.");
     }
 }
 
+//ver 28 - 네트워크 버전으로 변경
+//ver 26 - TeamMemberController에서 delete() 메서드를 추출하여 클래스로 정의.
 //ver 23 - @Component 애노테이션을 붙인다.
 //ver 18 - ArrayList가 적용된 TeamMemberDao를 사용한다.
 //ver 17 - TeamMemberDao 클래스를 사용하여 팀 멤버의 아이디를 관리한다.

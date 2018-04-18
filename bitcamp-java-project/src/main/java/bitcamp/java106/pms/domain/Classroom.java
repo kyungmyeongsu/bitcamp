@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Classroom implements Serializable {
-    
     private static final long serialVersionUID = 1L;
 
-    private static int count;
+    public static int count;
     
     private int no;
     private String title;
@@ -63,4 +62,5 @@ public class Classroom implements Serializable {
     
 }
 
+//ver 27 - java.io.Serializable 인터페이스 구현
 //ver 24 - setNo() 변경 

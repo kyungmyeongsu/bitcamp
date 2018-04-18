@@ -4,21 +4,13 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
 
 import bitcamp.java106.pms.annotation.Component;
-import bitcamp.java106.pms.domain.Classroom;
-import bitcamp.java106.pms.domain.Team;
 
 @Component
 public class TeamMemberDao {
@@ -36,9 +28,9 @@ public class TeamMemberDao {
                                new BufferedInputStream(
                                new FileInputStream("data/teammember.data")));
             ) {
-            
+        
             try {
-                collection = (HashMap<String,ArrayList<String>>)in.readObject();
+                collection = (HashMap<String,ArrayList<String>>) in.readObject();
             } catch (Exception e) {
                 // 데이터를 읽다가 오류가 발생하면 빈 해시맵 객체를 만든다.
                 collection = new HashMap<>();
