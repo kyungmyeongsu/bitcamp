@@ -6,10 +6,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-import bitcamp.java106.pms.controller.Controller;
-import bitcamp.java106.pms.server.ServerRequest;
-import bitcamp.java106.pms.server.ServerResponse;
-
 public class HTTPServer {
     int port;
     ApplicationContainer applicationContainer;
@@ -18,6 +14,7 @@ public class HTTPServer {
         this.port = port;
         this.applicationContainer = applicationContainer;
     }
+    
     public void execute() throws Exception {
         // 서버 소켓 준비
         ServerSocket serverSocket = new ServerSocket(this.port);
@@ -38,7 +35,7 @@ public class HTTPServer {
             out = new PrintWriter(socket.getOutputStream());
             in = new Scanner(socket.getInputStream());
             
-            // HTTP 포로토콜에서 요청 정보를 읽는다.
+            // HTTP 프로토콜에서 요청 정보를 읽는다. 
             boolean firstLine = true;
             String requestURI = null;
             
@@ -46,20 +43,21 @@ public class HTTPServer {
                 String line = in.nextLine();
                 if (line.equals(""))
                     break;
-                if (!firstLine)
+                
+                if (!firstLine) 
                     continue;
                 
-                // HTTP 요청 프로토콜에서 첫 번째 줄에있는 URI 정보를 추출한다.
+                // HTTP 요청 프로토콜에서 첫 번째 줄에 있는 요청 URI 정보를 추출한다.
                 requestURI = line.split(" ")[1];
                 firstLine = false;
             }
             
-            // AppContainer에게 실행을 위임한다.
+            // ApplicationContainer에게 실행을 위임한다.
             String result = applicationContainer.execute(requestURI);
             
-            // HTTP 프로토콜에 따라 응답한다.
+            // HTTP 프로토톨에 따라 응답한다.
             out.println("HTTP/1.1 200 OK");
-            out.println("Content-Type: text/plain;chatset=UTF-8");
+            out.println("Content-Type: text/plain;charset=UTF-8");
             out.println();
             out.println(result);
             
