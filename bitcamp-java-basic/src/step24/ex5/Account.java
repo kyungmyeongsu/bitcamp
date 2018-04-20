@@ -9,7 +9,9 @@ public class Account {
         this.balance = balance;
     }
     
-    public long withdraw(long money) {
+    // 한번에 한 스레드만이 호출하도록 접근을 제한하고 싶다면
+    // 메서드 전체를 동기화 블록
+    synchronized public long withdraw(long money) {
         long b = this.balance;
         for (int i = 0; i < 1000; i++) Math.asin(45.765);
         b -= money;
