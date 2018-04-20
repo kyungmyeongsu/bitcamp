@@ -11,6 +11,11 @@ public class Exam05 {
         ThreadGroup parentGroup = mainGroup.getParent();
         System.out.println(parentGroup.getName());
         
+        // "system" 그룹의 부모 그룹은?
+        ThreadGroup grandparentGroup = parentGroup.getParent();
+        if (grandparentGroup != null) {
+            System.out.println(grandparentGroup.getName());
+        }
     }
 
 }
