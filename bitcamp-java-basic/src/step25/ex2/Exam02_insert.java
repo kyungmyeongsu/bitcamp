@@ -1,4 +1,3 @@
-// 게시물 관리 - 등록
 package step25.ex2;
 
 import java.sql.Connection;
@@ -6,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class Exam01_insert {
+public class Exam02_insert {
     public static void main(String[] args) throws Exception{
         Scanner keyScan = new Scanner(System.in);
         
