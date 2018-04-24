@@ -1,6 +1,13 @@
 # 변경 내역
-- HTTPServer.java 추가
-- ApplicationContainer.java 추가
-- DefaultApplicationContainer.java 추가
-- AppServer.java 변경
-- AppClient.java 제거
+```
+drop table pms_member;
+
+create table pms_member (
+    mid varchar(20) not null,
+    email varchar(255) not null,
+    pwd varchar(100) not null
+);
+
+alter table pms_member
+    add constraint pms_member_pk primary key (mid);
+```

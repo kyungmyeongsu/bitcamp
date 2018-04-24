@@ -14,7 +14,7 @@ import java.util.List;
 
 
 public class BoardDao {
-    int delete(int no) throws Exception {
+    public int delete(int no) throws Exception {
         Class.forName("com.mysql.cj.jdbc.Driver");
         try (
             Connection con = DriverManager.getConnection(

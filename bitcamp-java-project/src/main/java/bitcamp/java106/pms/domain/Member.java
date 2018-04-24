@@ -9,11 +9,6 @@ public class Member implements Serializable {
     private String email;
     private String password;
     
-    public Member() {}
-    
-    public Member(String id) {
-        this.id = id;
-    }
     
     public String getId() {
         return id;
