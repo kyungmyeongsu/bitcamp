@@ -28,8 +28,8 @@ public class MemberAddController implements Controller {
 
         PrintWriter out = response.getWriter();
         try {
-        memberDao.insert(member);
-        out.println("등록 성공!");
+            memberDao.insert(member);
+            out.println("등록 성공!");
         } catch (Exception e) {
             out.println("등록 실패!");
             e.printStackTrace(out);

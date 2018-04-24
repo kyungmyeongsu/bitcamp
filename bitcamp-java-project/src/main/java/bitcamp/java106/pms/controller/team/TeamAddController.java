@@ -31,9 +31,13 @@ public class TeamAddController implements Controller {
         team.setStartDate(Date.valueOf(request.getParameter("startDate")));
         team.setEndDate(Date.valueOf(request.getParameter("endDate")));
 
-        teamDao.insert(team);
-        
-        out.println("등록 성공!");
+        try {
+            teamDao.insert(team);
+            out.println("등록 성공!");
+        } catch (Exception e) {
+            out.println("등록 실패!");
+            e.printStackTrace(out);
+        }
     }
 }
 

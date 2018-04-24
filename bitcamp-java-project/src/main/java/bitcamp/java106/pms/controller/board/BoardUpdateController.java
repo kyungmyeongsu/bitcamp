@@ -36,7 +36,7 @@ public class BoardUpdateController implements Controller {
                     out.println("변경하였습니다.");
                 }
         } catch (Exception e) {
-            out.println("상세조회 실패!");
+            out.println("변경 실패!");
             e.printStackTrace(out);
         }
     }
