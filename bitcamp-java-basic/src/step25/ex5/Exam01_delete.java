@@ -1,5 +1,5 @@
 // 게시판 관리 - JDBC 코드를  별도의 클래스에 캡슐화 적용
-package step25.ex4;
+package step25.ex5;
 
 import java.util.Scanner;
 

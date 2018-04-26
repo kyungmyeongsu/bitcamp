@@ -1,30 +1,28 @@
 package bitcamp.java106.pms.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.domain.Board;
+import bitcamp.java106.pms.jdbc.DataSource;
 
 @Component
 public class BoardDao {
+    
+    DataSource dataSource;
+    
+    public BoardDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+    
     public int delete(int no) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
         try (
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/java106db?serverTimezone=UTC&useSSL=false",
-                    "java106","1111");
+            Connection con = dataSource.getConnection();
             PreparedStatement stmt = con.prepareStatement("delete from pms_board where bno=?");) {
                 
             
@@ -34,11 +32,8 @@ public class BoardDao {
     }
     
     public List<Board> selcetList() throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
         try (
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/java106db?serverTimezone=UTC&useSSL=false",
-                    "java106","1111");
+                Connection con = dataSource.getConnection();
             PreparedStatement stmt = con.prepareStatement("select bno,titl,cdt from pms_board");
             ResultSet rs = stmt.executeQuery();) {
         
@@ -55,13 +50,8 @@ public class BoardDao {
     }
 
     public int insert(Board board) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
         try (
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/java106db?serverTimezone=UTC&useSSL=false",
-                    "java106","1111");
-            
-            
+                Connection con = dataSource.getConnection();
             PreparedStatement stmt = con.prepareStatement(
                     "insert into pms_board(titl,cont,cdt) values(?,?,now())");) {
             
@@ -73,11 +63,8 @@ public class BoardDao {
     }
     
     public int update(Board board) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
         try (
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/java106db?serverTimezone=UTC&useSSL=false",
-                    "java106","1111");
+                Connection con = dataSource.getConnection();
             PreparedStatement stmt = con.prepareStatement(
                     "update pms_board set titl=?, cont=?, cdt=now() where bno=?");) {
             stmt.setString(1, board.getTitle());
@@ -88,11 +75,8 @@ public class BoardDao {
     }
 
     public Board selectOne(int no) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
         try (
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/java106db?serverTimezone=UTC&useSSL=false",
-                    "java106","1111");
+                Connection con = dataSource.getConnection();
             
             PreparedStatement stmt = con.prepareStatement(
                     "select bno,titl,cont,cdt from pms_board where bno=?");) {

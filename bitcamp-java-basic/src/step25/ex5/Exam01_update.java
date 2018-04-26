@@ -1,4 +1,4 @@
-package step25.ex4;
+package step25.ex5;
 
 import java.util.Scanner;
 

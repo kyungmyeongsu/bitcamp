@@ -1,5 +1,5 @@
 // 게시물 관리 - 조회
-package step25.ex4;
+package step25.ex5;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

@@ -3,7 +3,7 @@
 // => data 영속성(지속성)
 //    - 데이터를 저장하고 유지하는것
 //    - "데이터 퍼시스턴스" 라 부른다.
-package step25.ex4;
+package step25.ex5;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
