@@ -1,4 +1,4 @@
-// Mybatis - SQL문 실행
+// Mybatis - 클래스 별명 지정하기
 package step25.ex5;
 
 import java.io.InputStream;
@@ -9,34 +9,30 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class Exam01_2 {
+// mybatis 설정 파일에서 fully-qualified class name을 사용하는 대신에
+// 짧은 이름
+public class Exam02_1 {
 
     public static void main(String[] args) throws Exception {
+        // mybatis 설정 파일을 읽을 도구를 준비한다. 
+        // => Resources의 getResourceAsStream() 메서드는
+        //    파라미터에 지정한 파일 경로를 CLASSPATH에서 찾는다.
+        //    그리고 그 파일을 읽을 수 있는 InputStream 도구를 리턴한다.
+        // => 개발자가 mybatis-config.xml 파일의 전체 경로를 지정하지 않아도 되기 때문에
+        //    매우 편리하다. 
+        // => 단 해당 파일은 CLASSPATH에 있어야 한다.
         InputStream inputStream = Resources.getResourceAsStream(
-                "step25/ex5/mybatis-config.xml");
+                "step25/ex5/mybatis-config02.xml");
         
+        // mybatis 설정 파일을 가지고 Builder를 이용하여 
+        // SqlSession 공장 객체를 생성한다.
         SqlSessionFactory factory = 
                 new SqlSessionFactoryBuilder().build(inputStream);
         
+        // SqlSession 공작 객체로부터 SqlSession 객체를 얻는다.
         SqlSession sqlSession = factory.openSession();
         
         // SqlSession 객체를 이용하여 SQL 맵퍼 파일에 작성한 SQL 문을 실행한다.
-        // => select 문장 
-        //    - sqlSession.selectList() : 목록 리턴
-        //    - sqlSession.selectOne() : 한 개의 결과 리턴
-        // => insert 문장
-        //    - sqlSession.insert();
-        // => update 문장
-        //    - sqlSession.update();
-        // => delete 문장
-        //    - sqlSession.delete();
-        // => insert/update/delete인경우 insert()/update()/delete() 메서드 중 아무거나 호출해도된다.
-        //
-        // 메서드 사용법)
-        // => 예) selectList(SQL문이름, 파라미터값)
-        //    - SQL문 이름 = 그룹명 + "." + SQL문장 아이디
-        //    - 파라미터 값 = primitive type 및 모든 자바 객체가 가능하다.
-        //                여러개의 
         // => SQL 문장 = 그룹명 + "." + SQL문장 아이디 
         List<Board> list = 
                 sqlSession.selectList("BoardMapper.selectBoard");

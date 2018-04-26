@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="BoardMapper">
+
+  <resultMap type="Board" id="BoardMap">
+    <!-- 주의! primary key 컬럼인 경우 id 태그를 사용하라! -->
+    <id column="bno" property="no"/>
+    <result column="titl" property="title"/>
+    <result column="cont" property="content"/>
+    <result column="rdt" property="registeredDate"/>
+  </resultMap>
+
+  <!-- 위에서 정의한 열결정보를 사용하고 싶다면, resultMap="연결정보아이디"를 설정하라! -->
+  <select id="selectBoard" resultMap="BoardMap">
+    select 
+      bno,
+      titl,
+      cont,
+      rdt
+    from ex_board
+  </select>
+
+</mapper>
+
+
+
+
+
+
+

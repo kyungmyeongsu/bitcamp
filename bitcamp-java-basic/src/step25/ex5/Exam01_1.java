@@ -56,18 +56,7 @@ public class Exam01_1 {
         // SqlSession 공작 객체로부터 SqlSession 객체를 얻는다.
         SqlSession sqlSession = factory.openSession();
         
-        // SqlSession 객체를 이용하여 SQL 맵퍼 파일에 작성한 SQL 문을 실행한다.
-        // => SQL 문장 = 그룹명 + "." + SQL문장 아이디 
-        List<Board> list = 
-                sqlSession.selectList("step25.ex5.BoardDao.selectBoard");
-        
-        for (Board board : list) {
-            System.out.printf("%d, %s, %s, %s\n", 
-                    board.getNo(), 
-                    board.getTitle(), 
-                    board.getContent(),
-                    board.getRegisteredDate());
-        }
+        System.out.println("mybatis 준비 완료!");
         
         sqlSession.close();
     }

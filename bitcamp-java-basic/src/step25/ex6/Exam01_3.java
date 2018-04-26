@@ -1,4 +1,4 @@
-// Mybatis - select 컴럼명
+// Mybatis - 자바 객체의 프로퍼티 이름과 컬럼명을 일치시키지
 package step25.ex6;
 
 import java.io.InputStream;
@@ -9,11 +9,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class Exam01_1 {
+public class Exam01_3 {
 
     public static void main(String[] args) throws Exception {
         InputStream inputStream = Resources.getResourceAsStream(
-                "step25/ex6/mybatis-config01.xml");
+                "step25/ex6/mybatis-config03.xml");
         
         SqlSessionFactory factory = 
                 new SqlSessionFactoryBuilder().build(inputStream);
@@ -30,13 +30,6 @@ public class Exam01_1 {
                     board.getContent(),
                     board.getRegisteredDate());
         }
-        // 실행 오류 발생! 이유?
-        // => mybatis에서 결과 값을 Board객체에 담지 못했기 때문이다.
-        //
-        // 왜 결과 값을 Board에 담지 못했는가?
-        // => mybatis에서 값을 컬럼 값을 자바 객체에 담을 때
-        //    컬럼 이름과 같은 이름을 가진 프로퍼티(셋터 메서드)를 찾는다.
-        // => 그런데 Board 클래스에는 
         
         sqlSession.close();
     }
