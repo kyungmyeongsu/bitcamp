@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.ClassroomDao;
-import bitcamp.java106.pms.domain.Classroom;
 import bitcamp.java106.pms.server.ServerRequest;
 import bitcamp.java106.pms.server.ServerResponse;
 
@@ -21,7 +20,7 @@ public class ClassroomDeleteController implements Controller {
     @Override
     public void service(ServerRequest request, ServerResponse response) {
         PrintWriter out = response.getWriter();
-        int no = Integer.parseInt(request.getParameter("crno"));
+        int no = Integer.parseInt(request.getParameter("no"));
         
         try {
             int count = classroomDao.delete(no);
@@ -39,5 +38,6 @@ public class ClassroomDeleteController implements Controller {
 
 }
 
+//ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - ClassroomController에서 delete() 메서드를 추출하여 클래스로 정의.

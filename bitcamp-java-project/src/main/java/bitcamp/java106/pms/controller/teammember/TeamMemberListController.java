@@ -28,13 +28,13 @@ public class TeamMemberListController implements Controller {
     public void service(ServerRequest request, ServerResponse response) {
         PrintWriter out = response.getWriter();
         String teamName = request.getParameter("teamName");
+        
         try {
             out.print("회원들: ");
-            
             List<String> list = teamMemberDao.selectList(teamName);
-                for (String memberId : list) {
-                    out.printf("%s, ", memberId);
-                }
+            for (String memberId : list) {
+                out.printf("%s, ", memberId);
+            }
             out.println();
         } catch (Exception e) {
             out.println("목록 가져오기 실패!");
@@ -43,6 +43,7 @@ public class TeamMemberListController implements Controller {
     }
 }
 
+//ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - TeamMemberController에서 list() 메서드를 추출하여 클래스로 정의.
 //ver 23 - @Component 애노테이션을 붙인다.

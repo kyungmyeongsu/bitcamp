@@ -9,7 +9,6 @@ public class Member implements Serializable {
     private String email;
     private String password;
     
-    
     public String getId() {
         return id;
     }
@@ -40,6 +39,7 @@ public class Member implements Serializable {
     
 }
 
+//ver 31 - 생성자 제거
 //ver 27 - java.io.Serializable 인터페이스 구현
 //ver 24 - 생성자 추가
 //ver 17 - toString() 재정의.

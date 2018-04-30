@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.TeamDao;
-import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.server.ServerRequest;
 import bitcamp.java106.pms.server.ServerResponse;
 
@@ -26,7 +25,7 @@ public class TeamDeleteController implements Controller {
         
         try {
             int count = teamDao.delete(name);
-            
+    
             if (count == 0) {
                 out.println("해당 이름의 팀이 없습니다.");
             } else {
@@ -40,6 +39,7 @@ public class TeamDeleteController implements Controller {
     
 }
 
+//ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - TeamController에서 delete() 메서드를 추출하여 클래스로 정의.
 //ver 23 - @Component 애노테이션을 붙인다.

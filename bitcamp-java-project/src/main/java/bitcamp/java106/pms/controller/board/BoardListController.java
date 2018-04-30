@@ -23,7 +23,7 @@ public class BoardListController implements Controller {
         PrintWriter out = response.getWriter();
         
         try {
-            List<Board> list = boardDao.selcetList();
+            List<Board> list = boardDao.selectList();
             for (Board board : list) {
                 out.printf("%d, %s, %s\n",
                     board.getNo(), board.getTitle(), board.getCreatedDate());
@@ -35,5 +35,6 @@ public class BoardListController implements Controller {
     }
 }
 
+//ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - BoardController에서 list() 메서드를 추출하여 클래스로 정의. 

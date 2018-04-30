@@ -36,14 +36,15 @@ public class TaskUpdateController implements Controller {
     @Override
     public void service(ServerRequest request, ServerResponse response) {
         PrintWriter out = response.getWriter();
+        
         try {
             Task task = new Task()
-                    .setNo(Integer.parseInt(request.getParameter("no")))
-                    .setTitle(request.getParameter("title"))
-                    .setStartDate(Date.valueOf(request.getParameter("startDate")))
-                    .setEndDate(Date.valueOf(request.getParameter("endDate")))
-                    .setTeam(new Team().setName(request.getParameter("teamName")))
-                    .setWorker(new Member().setId(request.getParameter("memberId")));
+                .setNo(Integer.parseInt(request.getParameter("no")))
+                .setTitle(request.getParameter("title"))
+                .setStartDate(Date.valueOf(request.getParameter("startDate")))
+                .setEndDate(Date.valueOf(request.getParameter("endDate")))
+                .setTeam(new Team().setName(request.getParameter("teamName")))
+                .setWorker(new Member().setId(request.getParameter("memberId")));
             
             int count = taskDao.update(task);
             if (count == 0) {
@@ -59,6 +60,7 @@ public class TaskUpdateController implements Controller {
 
 }
 
+//ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - TaskController에서 update() 메서드를 추출하여 클래스로 정의.
 //ver 23 - @Component 애노테이션을 붙인다.

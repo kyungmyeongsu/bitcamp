@@ -16,18 +16,17 @@ public class HTTPServer {
     }
     
     public void execute() throws Exception {
-        // 서버 소켓 준비
         ServerSocket serverSocket = new ServerSocket(this.port);
-        System.out.println("서버 실행 했음!");
+        System.out.println("서버가 시작됨!");
         
         while (true) {
             Socket socket = serverSocket.accept();
             
-            // 클라이언트 요청을 처리할 코드를 기존의 실행 흐름에서 분리하여 실행한다.
+            // 클라이언트 요청을 처리할 코드를 기존의 실행흐름에서 분리하여 실행한다.
             // 그리고 바로 새 스레드(실행흐름)의 실행을 시작시킨다.
             new RequestProcessorThread(socket).start();
             
-            // 그리고 기존의 실행은 위의 t 스레드와 산관없이 계속 진행된다.
+            // 그리고 기존의 실행은 위의 t 스레드와 상관없이 계속 진행한다.
         }
     }
     
@@ -66,8 +65,10 @@ public class HTTPServer {
                     firstLine = false;
                 }
                 
+                //System.out.println("execute() 실행 전");
                 // ApplicationContainer에게 실행을 위임한다.
                 String result = applicationContainer.execute(requestURI);
+                //System.out.println("execute() 실행 후");
                 
                 // HTTP 프로토톨에 따라 응답한다.
                 out.println("HTTP/1.1 200 OK");
@@ -90,5 +91,7 @@ public class HTTPServer {
             }
         }
     }
-    
 }
+
+//ver 30 - Thread 적용
+//ver 29 - 클래스 추가
