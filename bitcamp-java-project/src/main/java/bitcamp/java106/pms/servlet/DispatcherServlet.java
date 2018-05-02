@@ -106,7 +106,11 @@ public class DispatcherServlet implements Servlet {
 //    이클립스에서 컴파일하거나 실행할 때 사용하는 외부 라이브러리는
 //    gradle이관리하는 라이브러리이다.
 // => 이 라이브러리를 배포하려먼 gradle 을 통해 라이브러리를 복사해야한다.
-//    
+//    > gradle build 실행!
+//    그러면 build/
+//
+// .war 파일만들기
+// => build.gradle 파일에 war 파일을 다루는 
 //
 // 애플리케이션 실행
 // 1) 톰캣 서버를 실행 또는 재실행
