@@ -2,8 +2,14 @@ package bitcamp.java106.step11;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 
-@ComponentScan(basePackages="bitcamp.java106.step11")
+@ComponentScan(
+        basePackages="bitcamp.java106.step11",
+        excludeFilters=@ComponentScan.Filter(
+                type=FilterType.REGEX,
+                pattern="bitcamp.java106.step11.b.*")
+)
 public class AppConfig01 {
     @Bean 
     public Car car2() {
