@@ -12,67 +12,60 @@ import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.java106.pms.dao.BoardDao;
 import bitcamp.java106.pms.domain.Board;
+import bitcamp.java106.pms.server.ServerRequest;
+import bitcamp.java106.pms.server.ServerResponse;
 import bitcamp.java106.pms.servlet.initServlet;
 
-@WebServlet("/board/add")
-public class BoardAddServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    
+@SuppressWarnings("serial")
+@WebServlet("/board/update")
+public class BoardUpdateServlet extends HttpServlet {
     BoardDao boardDao;
     
     @Override
     public void init() throws ServletException {
-        // 스프링 IoC 컨테이너에서 서블릿 객체를 관리하는 것이 아니기 때문에
-        // 스프링 IoC 컨테이너에 들어있는 DAO 객체를 자동으로 주입 받을 수 없다.
-        // 서블릿을 생성할 때 스프링 IoC 컨테이너에서 직접 DAO를 꺼내와야한다.
         boardDao = initServlet.getApplicationContext().getBean(BoardDao.class);
     }
     
-    
-    
-     
     @Override
     protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
         request.setCharacterEncoding("UTF-8");
-        
         Board board = new Board();
+        board.setNo(Integer.parseInt(request.getParameter("no")));
         board.setTitle(request.getParameter("title"));
         board.setContent(request.getParameter("content"));
-        board.setCreatedDate(new Date(System.currentTimeMillis()));
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
         
         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
-        
-        // 지정된 시간이 경과하면 다기 서버에 요청하도록 태그를 삽입!
-        // => 웹브라우저는 meta 태그의 내용 대로 동작한다.
         out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-        
-        out.println("<title>게시물 등록</title>");
+        out.println("<title>게시물 변경</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>게시물 등록결과</h1>");
+        out.println("<h1>게시물 변경결과</h1>");
         try {
-            boardDao.insert(board);
-            out.println("<p>등록 성공!</p>");
-            
+            int count = boardDao.update(board);
+            if (count == 0) {
+                out.println("<p>해당 게시물이 존재하지 않습니다.</p>");
+            } else {
+                out.println("<p>변경하였습니다.</p>");
+            }
         } catch (Exception e) {
-            out.println("<p>등록 실패!</p>");
+            out.println("<p>변경 실패!</p>");
             e.printStackTrace(out);
         }
         out.println("</body>");
         out.println("</html>");
     }
-
 }
 
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
-//ver 26 - BoardController에서 add() 메서드를 추출하여 클래스로 정의. 
+//ver 26 - BoardController에서 update() 메서드를 추출하여 클래스로 정의.
