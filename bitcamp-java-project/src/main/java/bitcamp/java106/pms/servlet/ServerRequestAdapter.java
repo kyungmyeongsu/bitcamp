@@ -10,10 +10,9 @@ public class ServerRequestAdapter extends ServerRequest {
     public ServerRequestAdapter(HttpServletRequest request) {
         super("");
         this.request = request;
-        
     }
     
-    // 상속 받은 메서드를 현 재 클래스의 역할에 맞게끔 재정의하기 - 오버라이딩(overriding)
+    // 상속 받은 메서드를 현재 클래스의 역할에 맞게끔 재정의하기 - 오버라이딩(overriding)
     @Override
     public String getParameter(String name) {
         return request.getParameter(name);
@@ -21,6 +20,12 @@ public class ServerRequestAdapter extends ServerRequest {
     
     @Override
     public String getServerPath() {
-        return super.getServerPath();
+        return request.getPathInfo();
     }
+    
 }
+
+
+
+
+
