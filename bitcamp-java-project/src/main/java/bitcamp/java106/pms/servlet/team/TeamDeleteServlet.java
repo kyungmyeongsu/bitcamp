@@ -34,8 +34,6 @@ public class TeamDeleteServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        request.setCharacterEncoding("UTF-8");
-        
         
         try {
             String name = request.getParameter("name");

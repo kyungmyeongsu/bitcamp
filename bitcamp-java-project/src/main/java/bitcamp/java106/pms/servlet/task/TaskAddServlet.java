@@ -40,7 +40,6 @@ public class TaskAddServlet extends HttpServlet {
     protected void doGet(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
         String teamName = request.getParameter("teamName");
         
         response.setContentType("text/html;charset=UTF-8");
@@ -108,8 +107,6 @@ public class TaskAddServlet extends HttpServlet {
     protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
-        
-        request.setCharacterEncoding("UTF-8");
         
         
         String teamName = request.getParameter("teamName");

@@ -32,7 +32,6 @@ public class BoardAddServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        request.setCharacterEncoding("UTF-8");
         
         
         try {
