@@ -1,8 +1,9 @@
 package bitcamp.java106.pms.servlet.teammember;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,23 +40,11 @@ public class TeamMemberAddServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         
         String teamName = request.getParameter("teamName");
-        String memberId = request.getParameter("memberId");
         
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.printf("<meta http-equiv='Refresh' content='1;url=../view?name=%s'>\n", 
-                teamName);
-        out.println("<title>팀 회원 등록</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>팀 회원 등록 결과</h1>");
         
         try {
+            String memberId = request.getParameter("memberId");
             Team team = teamDao.selectOne(teamName);
             if (team == null) {
                 throw new Exception(teamName + " 팀은 존재하지 않습니다.");
@@ -68,14 +57,18 @@ public class TeamMemberAddServlet extends HttpServlet {
                 throw new Exception("이미 등록된 회원입니다.");
             }
             teamMemberDao.insert(teamName, memberId);
-            out.println("<p>팀에 회원을 추가하였습니다.</p>");
+            response.sendRedirect("../view?name=" + 
+                    URLEncoder.encode(teamName, "UTF-8"));
             
         } catch (Exception e) {
-            out.printf("<p>%s</p>\n", e.getMessage());
-            e.printStackTrace(out);
+            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
+            request.setAttribute("error", e);
+            request.setAttribute("title", "팀 회원 등록 실패!");
+            
+            // 다른 서블릿으로 실행을 위임할 때,
+            // 이전까지 버퍼로 출력한 데이터는 버린다.
+            요청배달자.forward(request, response);
         }
-        out.println("</body>");
-        out.println("</html>");
     }
 }
 

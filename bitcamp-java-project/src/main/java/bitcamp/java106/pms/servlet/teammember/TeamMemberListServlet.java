@@ -1,4 +1,4 @@
-package bitcamp.java106.pms.servlet.team;
+package bitcamp.java106.pms.servlet.teammember;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +19,7 @@ import bitcamp.java106.pms.servlet.InitServlet;
 
 @SuppressWarnings("serial")
 @WebServlet("/team/view")
-public class TeamViewServlet extends HttpServlet {
+public class TeamMemberListServlet extends HttpServlet {
 
     TeamDao teamDao;
     TeamMemberDao teamMemberDao;
