@@ -45,6 +45,9 @@ public class TeamMemberDeleteServlet extends HttpServlet {
             }
             response.sendRedirect("../view?name=" + 
                     URLEncoder.encode(teamName, "UTF-8"));
+            // 개발자가 요청이나 응답헤더를 직접 작성하여 값을 주고 받으려 한다면,
+            // URL인코딩과 URL디코딩을 손수해 줘야한다.
+            
         } catch (Exception e) {
             RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);
