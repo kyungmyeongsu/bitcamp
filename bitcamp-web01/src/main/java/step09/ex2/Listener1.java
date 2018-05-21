@@ -10,7 +10,9 @@ import javax.servlet.annotation.WebListener;
 
 // 리스너 
 // => 특정 상태가 되었을 때 작업을 수행하는 객체
-//
+// => 특정 상태에 도달했을 때의 시각 또는 걸린 시간을 기록하여
+//    서버의 실행 상태를 보여주는 모니터링 시스템을 만들때 유용하다.
+// => 예) 애플리케이션 성능 관리(=모니터링) 시스템(Application Performance Management System)
 // 서블릿 컨테이너에서 발생하는 이벤트(상태,사건,event)
 // 1) 서블릿 컨테이너의 시작 /종료 이벤트
 // 2) 요청이 시작/종료 이벤트
@@ -32,7 +34,10 @@ import javax.servlet.annotation.WebListener;
 // => 배치하는 방법
 //    1) 애노테이션을 사용하여 배치
 //       @WebListener
-//    2) 
+//    2) web.xml 파일에 배치 정보 설정
+//       <listener>
+//           <listener-class>step09.ex2.Listener1</listener-class>
+//       </listener>
 @WebListener
 public class Listener1 implements ServletContextListener {
     @Override
