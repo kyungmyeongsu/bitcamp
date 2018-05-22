@@ -28,6 +28,6 @@ public class ContextLoaderLitener implements ServletContextListener {
         
         // 왜, 이렇게 복잡하게 하는가?
         // => 스프링을 모방하기 위함이다.
-        // =>
+        // => 그냥 그렇게 이해하라!
     }
 }
