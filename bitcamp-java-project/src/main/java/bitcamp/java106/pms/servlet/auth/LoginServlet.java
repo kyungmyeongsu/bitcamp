@@ -115,11 +115,8 @@ public class LoginServlet extends HttpServlet {
                 out.println("<html>");
                 out.println("<head>");
                 out.println("<meta charset='UTF-8'>");
-                String refererURL = request.getHeader("Referer");
-                if (refererURL != null) {
-                    out.printf("<meta http-equiv='Refresh' content='1;url=%s'>", 
-                            request.getContextPath() + "/auth/login");
-                }
+                out.printf("<meta http-equiv='Refresh' content='1;url=%s'>", 
+                        request.getContextPath() + "/auth/login");
                 out.println("<title>로그인</title>");
                 out.println("</head>");
                 out.println("<body>");
