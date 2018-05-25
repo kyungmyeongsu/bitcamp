@@ -3,7 +3,6 @@
 <%@ page language="java" 
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,19 +10,18 @@
 <title>팀 목록</title>
 </head>
 <body>
-
-<%
-out.flush();
-request.getRequestDispatcher("/header.jsp").include(request, response);%>
-
-<h1>팀 목록(MVC)</h1>
+<jsp:include page="/header.jsp"/>
+<h1>팀 목록(MVC + JSP 전용 태그)</h1>
 <p><a href='form.html'>새 팀</a></p>
 <table border='1'>
 <tr>
     <th>팀명</th><th>최대인원</th><th>기간</th>
 </tr>
+<jsp:useBean id="list"
+            type="java.util.List<Team>"
+            class="java.util.ArrayList"
+            scope="request"/>
 <%
-List<Team> list = (List<Team>)request.getAttribute("list");
 for (Team team : list) {
 %>
 <tr>

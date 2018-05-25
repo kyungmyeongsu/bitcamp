@@ -9,15 +9,9 @@
 <title>게시물 보기</title>
 </head>
 <body>
-
-<%
-out.flush();
-request.getRequestDispatcher("/header.jsp").include(request, response);%>
-
-<h1>게시물 보기(MVC)</h1>
-<%
-Board board = (Board)request.getAttribute("board");
-%>
+<jsp:include page="/header.jsp"/>
+<h1>게시물 보기(MVC + JSP 전용 태그)</h1>
+<jsp:useBean id="board" class="bitcamp.java106.pms.domain.Board" scope="request"/>
 <form action='update' method='post'>
 <table border='1'>
 <tr><th>번호</th><td>

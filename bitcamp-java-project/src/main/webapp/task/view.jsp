@@ -11,15 +11,9 @@
 <title>작업 보기</title>
 </head>
 <body>
-
-<%
-out.flush();
-request.getRequestDispatcher("/header.jsp").include(request, response);%>
-
-<h1>작업 보기(MVC)</h1>
-<%
-Task task = (Task)request.getAttribute("task");
-%>
+<jsp:include page="/header.jsp"/>
+<h1>작업 보기(MVC + JSP 전용 태그)</h1>
+<jsp:useBean id="task" class="bitcamp.java106.pms.domain.Task" scope="request"/>
 <form action='update' method='post'>
 <input type='hidden' name='no' value='<%=request.getParameter("no")%>'>
 <table border='1'>
