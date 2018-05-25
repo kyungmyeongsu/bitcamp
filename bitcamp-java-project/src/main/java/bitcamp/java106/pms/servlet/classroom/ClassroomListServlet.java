@@ -1,4 +1,3 @@
-// Controller 규칙에 따라 메서드 작성
 package bitcamp.java106.pms.servlet.classroom;
 
 import java.io.IOException;
@@ -24,25 +23,22 @@ public class ClassroomListServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         classroomDao = iocContainer.getBean(ClassroomDao.class);
     }
-    
+
     @Override
     protected void doGet(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        
         try {
             List<Classroom> list = classroomDao.selectList();
-            
             request.setAttribute("list", list);
             
             response.setContentType("text/html;charset=UTF-8");
-            
             request.getRequestDispatcher("/classroom/list.jsp").include(request, response);
             
         } catch (Exception e) {
@@ -53,6 +49,9 @@ public class ClassroomListServlet extends HttpServlet {
     }
 }
 
+//ver 42 - JSP 적용
+//ver 39 - forward 적용
+//ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - ClassroomController에서 list() 메서드를 추출하여 클래스로 정의.

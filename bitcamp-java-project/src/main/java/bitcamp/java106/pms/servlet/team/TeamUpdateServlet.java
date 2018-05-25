@@ -23,9 +23,9 @@ public class TeamUpdateServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         teamDao = iocContainer.getBean(TeamDao.class);
     }
 
@@ -34,7 +34,6 @@ public class TeamUpdateServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        
         try {
             Team team = new Team();
             team.setName(request.getParameter("name"));
@@ -42,19 +41,27 @@ public class TeamUpdateServlet extends HttpServlet {
             team.setMaxQty(Integer.parseInt(request.getParameter("maxQty")));
             team.setStartDate(Date.valueOf(request.getParameter("startDate")));
             team.setEndDate(Date.valueOf(request.getParameter("endDate")));
+            
             int count = teamDao.update(team);
             if (count == 0) {
-                throw new Exception("해당 팀이 존재하지 않습니다.");
+                throw new Exception("<p>해당 팀이 존재하지 않습니다.</p>");
             }
             response.sendRedirect("list");
+            
         } catch (Exception e) {
             request.setAttribute("error", e);
             request.setAttribute("title", "팀 변경 실패!");
             request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
+    
 }
 
+//ver 42 - JSP 적용
+//ver 40 - CharacterEncodingFilter 필터 적용.
+//         request.setCharacterEncoding("UTF-8") 제거
+//ver 39 - forward 적용
+//ver 38 - redirect 적용
 //ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경

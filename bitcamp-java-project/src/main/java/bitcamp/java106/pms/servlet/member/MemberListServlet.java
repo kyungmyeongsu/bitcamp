@@ -23,9 +23,9 @@ public class MemberListServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         memberDao = iocContainer.getBean(MemberDao.class);
     }
 
@@ -36,11 +36,9 @@ public class MemberListServlet extends HttpServlet {
         
         try {
             List<Member> list = memberDao.selectList();
-            
             request.setAttribute("list", list);
             
             response.setContentType("text/html;charset=UTF-8");
-            
             request.getRequestDispatcher("/member/list.jsp").include(request, response);
             
         } catch (Exception e) {
@@ -51,6 +49,8 @@ public class MemberListServlet extends HttpServlet {
     }
 }
 
+//ver 42 - JSP 적용
+//ver 39 - forward 적용
 //ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경

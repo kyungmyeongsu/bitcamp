@@ -22,9 +22,9 @@ public class BoardUpdateServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         boardDao = iocContainer.getBean(BoardDao.class);
     }
     
@@ -33,27 +33,31 @@ public class BoardUpdateServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        
         try {
             Board board = new Board();
             board.setNo(Integer.parseInt(request.getParameter("no")));
             board.setTitle(request.getParameter("title"));
             board.setContent(request.getParameter("content"));
-            int count = boardDao.update(board);
             
+            int count = boardDao.update(board);
             if (count == 0) {
                 throw new Exception("해당 게시물이 존재하지 않습니다.");
-            }
-            
+            } 
             response.sendRedirect("list");
+            
         } catch (Exception e) {
             request.setAttribute("error", e);
             request.setAttribute("title", "게시물 변경 실패!");
             request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
+    
 }
 
+//ver 42 - JSP 적용
+//ver 40 - 필터 적용
+//ver 39 - forward 적용
+//ver 38 - redirect 적용
 //ver 37 - BoardUpdateController를 서블릿으로 변경
 //         결과를 HTML로 출력
 //ver 31 - JDBC API가 적용된 DAO 사용

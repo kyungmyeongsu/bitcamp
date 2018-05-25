@@ -24,9 +24,9 @@ public class TeamMemberDeleteServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         teamDao = iocContainer.getBean(TeamDao.class);
         teamMemberDao = iocContainer.getBean(TeamMemberDao.class);
     }
@@ -37,17 +37,18 @@ public class TeamMemberDeleteServlet extends HttpServlet {
             HttpServletResponse response) throws ServletException, IOException {
         
         String teamName = request.getParameter("teamName");
+        String memberId = request.getParameter("memberId");
+        
         
         try {
-            String memberId = request.getParameter("memberId");
             int count = teamMemberDao.delete(teamName, memberId);
             if (count == 0) {
-                throw new Exception("해당 팀원이 존재하지 않습니다.");
+                throw new Exception("<p>해당 팀원이 존재하지 않습니다.</p>");
             }
             response.sendRedirect("../view?name=" + 
                     URLEncoder.encode(teamName, "UTF-8"));
-            // 개발자가 요청이나 응답헤더를 직접 작성하여 값을 주고 받으려 한다면,
-            // URL인코딩과 URL디코딩을 손수해 줘야한다.
+            // 개발자가 요청이나 응답헤더를 직접 작성하여 값을 주고 받으로 한다면,
+            // URL 인코딩과 URL 디코딩을 손수 해 줘야 한다.
             
         } catch (Exception e) {
             request.setAttribute("error", e);
@@ -55,8 +56,14 @@ public class TeamMemberDeleteServlet extends HttpServlet {
             request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
+    
 }
 
+//ver 42 - JSP 적용
+//ver 40 - CharacterEncodingFilter 필터 적용.
+//         request.setCharacterEncoding("UTF-8") 제거
+//ver 39 - forward 적용
+//ver 38 - redirect 적용
 //ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경

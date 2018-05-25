@@ -25,9 +25,9 @@ public class TeamDeleteServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         teamDao = iocContainer.getBean(TeamDao.class);
         teamMemberDao = iocContainer.getBean(TeamMemberDao.class);
         taskDao = iocContainer.getBean(TaskDao.class);
@@ -38,18 +38,18 @@ public class TeamDeleteServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
+        String name = request.getParameter("name");
+        
         
         try {
-            String name = request.getParameter("name");
             teamMemberDao.delete(name);
             taskDao.deleteByTeam(name);
             int count = teamDao.delete(name);
-    
             if (count == 0) {
-                throw new Exception("해당 팀이 없습니다.");
+                throw new Exception ("해당 팀이 없습니다.");
             }
-            
             response.sendRedirect("list");
+            
         } catch (Exception e) {
             request.setAttribute("error", e);
             request.setAttribute("title", "팀 삭제 실패!");
@@ -59,6 +59,11 @@ public class TeamDeleteServlet extends HttpServlet {
     
 }
 
+//ver 42 - JSP 적용
+//ver 40 - CharacterEncodingFilter 필터 적용.
+//         request.setCharacterEncoding("UTF-8") 제거
+//ver 39 - forward 적용
+//ver 38 - redirect 적용
 //ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경

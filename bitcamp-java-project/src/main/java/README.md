@@ -1,19 +1,12 @@
 # 변경 내역
-- build.gradle 변경
-    - servlet 라이브러리 추가
-    - 의존 라이브러리를 외부 폴더에 복사하는 task 추가 
-    - "gradle eclipse" 실행 및 프로젝트 갱신
-- DispatcherServlet.java 추가 
-    - DefaultApplicationContainer.java의 역할을 수행할 클래스를 서블릿 규칙에 따라 만든다.
-- ServerRequestAdapter.java 추가
-    - 새 클래스인 HttpServletRequest를 이전 클래스에 맞추기 위함.
-- ServerResponseAdapter.java 추가
-    - 새 클래스인 HttpServletResponse를 이전 클래스에 맞추기 위함.
-- ApplicationContainer.java 제거
-- DefaultApplicationContainer.java 제거
-- AppServer.java 제거 
-- HttpServer.java 제거
-
+- index.html 변경
+- LoginServlet 변경
+- /auth/form.jsp, /auth/fail.jsp 추가
+- /header.jsp 추가
+- HeaderServlet 제거
+- ErrorServlet 제거
+- 서블릿에서 출력 부분을 JSP 파일에 맡긴다.
+- 서블릿 클래스 변경한다.
 
 
 

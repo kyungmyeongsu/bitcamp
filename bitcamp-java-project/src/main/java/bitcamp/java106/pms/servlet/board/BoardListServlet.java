@@ -23,9 +23,9 @@ public class BoardListServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         boardDao = iocContainer.getBean(BoardDao.class);
     }
     
@@ -34,10 +34,6 @@ public class BoardListServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        // 출력할 때 String 객체의 값(UTF-16)을 어떤 문자표를 사용하여 인코딩해서 보낼 것인지 설정한다.
-        // => 반드시 출력 스트림을 얻기 전에 설정해야 한다.
-        response.setContentType("text/html;charset=UTF-8");
-        
         try {
             // JSP에서 출력할 게시물 목록을 가져온다.
             List<Board> list = boardDao.selectList();
@@ -45,10 +41,10 @@ public class BoardListServlet extends HttpServlet {
             // JSP가 게시물 목록을 사용할 수 있도록 ServletRequest 보관소에 저장한다.
             request.setAttribute("list", list);
             
-            // include 한다면, 이 서블릿에서 콘텐트 타입을 지정해야한다.
+            // include 한다면, 이 서블릿에서 콘텐트 타입을 지정해야 한다.
             response.setContentType("text/html;charset=UTF-8");
             
-            // JSP를 실행하낟. 실행 완료후 
+            // JSP를 실행한다. 실행 완료 후 이 서블릿으로 되돌아 온다.
             request.getRequestDispatcher("/board/list.jsp").include(request, response);
             
         } catch (Exception e) {
@@ -59,6 +55,8 @@ public class BoardListServlet extends HttpServlet {
     }
 }
 
+//ver 42 - JSP 적용
+//ver 39 - forward 적용
 //ver 37 - BoardListController를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경

@@ -1,6 +1,7 @@
 package bitcamp.java106.pms.servlet.team;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 
 import bitcamp.java106.pms.dao.TeamDao;
+import bitcamp.java106.pms.dao.TeamMemberDao;
+import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.support.WebApplicationContextUtils;
 
@@ -19,13 +22,15 @@ import bitcamp.java106.pms.support.WebApplicationContextUtils;
 public class TeamViewServlet extends HttpServlet {
 
     TeamDao teamDao;
+    TeamMemberDao teamMemberDao;
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         teamDao = iocContainer.getBean(TeamDao.class);
+        teamMemberDao = iocContainer.getBean(TeamMemberDao.class);
     }
     
     @Override
@@ -33,25 +38,21 @@ public class TeamViewServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
 
-        
-        
+        String name = request.getParameter("name");
         
         try {
-            String name = request.getParameter("name");
             Team team = teamDao.selectOne(name);
-    
             if (team == null) {
                 throw new Exception("유효하지 않은 팀입니다.");
             }
-            
             request.setAttribute("team", team);
             
+            List<Member> members = teamMemberDao.selectListWithEmail(name);
+            request.setAttribute("members", members);
+            
+
             response.setContentType("text/html;charset=UTF-8");
             request.getRequestDispatcher("/team/view.jsp").include(request, response);
-            
-            // 팀 회원의 목록을 출력하는 것은 TeamMemberListServlet에게 맡긴다.
-            request.getRequestDispatcher("/team/member/list").include(request, response);
-            // TeamMemberListServlet이 작업을 수행한 후 이 서블릿으로 되돌아온다.
                
         } catch (Exception e) {
             request.setAttribute("error", e);
@@ -61,6 +62,10 @@ public class TeamViewServlet extends HttpServlet {
     }
 }
 
+//ver 42 - JSP 적용
+//ver 40 - CharacterEncodingFilter 필터 적용.
+//         request.setCharacterEncoding("UTF-8") 제거
+//ver 39 - forward 적용
 //ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경

@@ -1,4 +1,3 @@
-// Controller 규칙에 따라 메서드 작성
 package bitcamp.java106.pms.servlet.member;
 
 import java.io.IOException;
@@ -23,9 +22,9 @@ public class MemberUpdateServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         memberDao = iocContainer.getBean(MemberDao.class);
     }
 
@@ -34,26 +33,32 @@ public class MemberUpdateServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        
         try {
             Member member = new Member();
             member.setId(request.getParameter("id"));
             member.setEmail(request.getParameter("email"));
             member.setPassword(request.getParameter("password"));
+            
             int count = memberDao.update(member);
             if (count == 0) {
                 throw new Exception("해당 회원이 존재하지 않습니다.");
             }
             response.sendRedirect("list");
+            
         } catch (Exception e) {
             request.setAttribute("error", e);
             request.setAttribute("title", "회원 변경 실패!");
             request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
-
+    
 }
 
+//ver 42 - JSP 적용
+//ver 40 - CharacterEncodingFilter 필터 적용.
+//         request.setCharacterEncoding("UTF-8") 제거
+//ver 39 - forward 적용
+//ver 38 - redirect 적용
 //ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경

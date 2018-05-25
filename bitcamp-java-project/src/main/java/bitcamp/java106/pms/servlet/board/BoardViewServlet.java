@@ -22,9 +22,9 @@ public class BoardViewServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         boardDao = iocContainer.getBean(BoardDao.class);
     }
     
@@ -33,7 +33,6 @@ public class BoardViewServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        
         try {
             int no = Integer.parseInt(request.getParameter("no"));
             Board board = boardDao.selectOne(no);
@@ -41,7 +40,7 @@ public class BoardViewServlet extends HttpServlet {
                 throw new Exception("유효하지 않은 게시물 번호입니다.");
             }
             request.setAttribute("board", board);
-            
+
             response.setContentType("text/html;charset=UTF-8");
             request.getRequestDispatcher("/board/view.jsp").include(request, response);
             
@@ -52,6 +51,9 @@ public class BoardViewServlet extends HttpServlet {
         }
     }
 }
+
+//ver 42 - JSP 적용
+//ver 39 - forward 적용
 //ver 37 - BoardViewController를 서블릿으로 변경
 //         HTML로 출력 
 //ver 31 - JDBC API가 적용된 DAO 사용

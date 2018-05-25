@@ -22,9 +22,9 @@ public class ClassroomViewServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer =
+        ApplicationContext iocContainer = 
                 WebApplicationContextUtils.getWebApplicationContext(
-                        this.getServletContext());
+                        this.getServletContext()); 
         classroomDao = iocContainer.getBean(ClassroomDao.class);
     }
     
@@ -32,20 +32,17 @@ public class ClassroomViewServlet extends HttpServlet {
     protected void doGet(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
-        
-        int no = Integer.parseInt(request.getParameter("no"));
-        
+
         try {
+            int no = Integer.parseInt(request.getParameter("no"));
             Classroom classroom = classroomDao.selectOne(no);
     
             if (classroom == null) {
                 throw new Exception("유효하지 않은 강의입니다.");
             }
-            
             request.setAttribute("classroom", classroom);
-            
             response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/classroom/view.jsp").include(request, response);
+            request.getRequestDispatcher("/classroom/view.jsp").forward(request, response);
             
         } catch (Exception e) {
             request.setAttribute("error", e);
@@ -55,6 +52,8 @@ public class ClassroomViewServlet extends HttpServlet {
     }
 }
 
+//ver 42 - JSP 적용
+//ver 39 - forward 적용
 //ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
