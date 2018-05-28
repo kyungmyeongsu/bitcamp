@@ -9,7 +9,7 @@
         <a href='${pageContext.request.contextPath}/auth/form.jsp'>로그인</a>
     </c:when>
     <c:otherwise>
-        ${loginUser.id}<a href='${pageContext.request.contextPath}/auth/logout'>로그아웃</a>
+        ${loginUser.id} <a href='${pageContext.request.contextPath}/auth/logout'>로그아웃</a>
     </c:otherwise>
 </c:choose>
 </div>
