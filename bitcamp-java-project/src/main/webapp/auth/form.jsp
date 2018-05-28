@@ -24,11 +24,11 @@ if (cookies != null) {
 <title>로그인</title>
 </head>
 <body>
-<h1>로그인(MVC)</h1>
+<h1>로그인(MVC + EL)</h1>
 <form action='login' method='post'>
 <table border='1'>
 <tr><th>아이디</th>
-    <td><input type='text' name='id' value='<%=id%>'></td></tr>
+    <td><input type='text' name='id' value='${cookie.id.value}'></td></tr>
 <tr><th>암호</th>
     <td><input type='password' name='password'></td></tr>
 </table>
