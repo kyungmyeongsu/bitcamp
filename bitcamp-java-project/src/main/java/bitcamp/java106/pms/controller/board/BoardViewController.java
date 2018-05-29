@@ -19,7 +19,7 @@ public class BoardViewController {
     }
     
     @RequestMapping
-    public String service(
+    public String view(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         

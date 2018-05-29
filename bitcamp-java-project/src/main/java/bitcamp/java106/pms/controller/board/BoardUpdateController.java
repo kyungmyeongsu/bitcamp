@@ -19,7 +19,7 @@ public class BoardUpdateController {
     }
     
     @RequestMapping
-    public String service(
+    public String update(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         

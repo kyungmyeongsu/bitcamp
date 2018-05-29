@@ -2,6 +2,7 @@
 package bitcamp.java106.pms.servlet;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import bitcamp.java106.pms.controller.PageController;
 import bitcamp.java106.pms.support.WebApplicationContextUtils;
+import web.RequestMapping;
 
 @SuppressWarnings("serial")
 public class DispatcherServlet extends HttpServlet {
@@ -57,12 +58,18 @@ public class DispatcherServlet extends HttpServlet {
         // 클라이언트가 요청한 서블릿의 경로를 알아내기
         String servletPath = request.getServletPath().replace(".do", "");
         
-        // 클라이언트 요청을 처리할 페이지 컨트롤러를 얻기
-        PageController pageController = (PageController)iocContainer.getBean(servletPath);
         
         // 페이지 컨트롤러의 실행
         try {
-            String viewUrl = pageController.service(request, response);
+            // 클라이언트 요청을 처리할 페이지 컨트롤러를 얻기
+            Object pageController = iocContainer.getBean(servletPath);
+            
+            Method requestHandler = findRequestHandler(pageController);
+            
+            if (requestHandler == null)
+                throw new ServletException("요청을 처리할 요청 핸들러가 없습니다.");
+            
+            String viewUrl = (String)requestHandler.invoke(pageController, request, response);
             if (viewUrl.startsWith("redirect:")) {
                 response.sendRedirect(viewUrl.substring(9));
             } else {
@@ -71,6 +78,18 @@ public class DispatcherServlet extends HttpServlet {
         } catch (Exception e) {
             throw new ServletException("페이지 컨트롤러 실행중 오루 발생!");
         }
+        
+    }
+
+    private Method findRequestHandler(Object pageController) throws Exception {
+        Class<?> clazz = pageController.getClass();
+        Method[] methods = clazz.getDeclaredMethods();
+        for (Method m : methods) {
+            RequestMapping anno = m.getAnnotation(RequestMapping.class);
+            if (anno != null)
+                return m;
+        }
+        return null;
     }
 }
 

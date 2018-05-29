@@ -22,7 +22,7 @@ public class BoardListController {
 
     
     @RequestMapping
-    public String service(
+    public String list(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         

@@ -20,7 +20,7 @@ public class BoardAddController {
     
     
     @RequestMapping
-    public String service(
+    public String add(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         

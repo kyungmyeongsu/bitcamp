@@ -18,7 +18,7 @@ public class BoardDeleteController {
     }
 
     @RequestMapping
-    public String service(
+    public String delete(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         
