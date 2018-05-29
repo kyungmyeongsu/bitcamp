@@ -41,13 +41,10 @@ public class MemberViewServlet extends HttpServlet {
                 throw new Exception("유효하지 않은 멤버 아이디입니다.");
             }
             request.setAttribute("member", member);
-            response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/member/view.jsp").forward(request, response);
+            request.setAttribute("viewUrl", "/member/view.jsp");
                
         } catch (Exception e) {
-            request.setAttribute("error", e);
-            request.setAttribute("title", "회원 상세조회 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            throw new ServletException(e);
         }
     }
 }

@@ -40,12 +40,10 @@ public class MemberAddServlet extends HttpServlet {
             member.setPassword(request.getParameter("password"));
             
             memberDao.insert(member);
-            response.sendRedirect("list");
+            request.setAttribute("viewUrl", "redirect:list.do");    
             
         } catch (Exception e) {
-            request.setAttribute("error", e);
-            request.setAttribute("title", "회원 등록 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            throw new ServletException(e);
         }
     }
     

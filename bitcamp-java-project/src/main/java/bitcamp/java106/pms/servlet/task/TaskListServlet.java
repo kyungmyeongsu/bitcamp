@@ -47,14 +47,11 @@ public class TaskListServlet extends HttpServlet {
             }
             List<Task> list = taskDao.selectList(team.getName());
             request.setAttribute("list", list);
+            request.setAttribute("viewUrl", "/task/list.jsp");
             
-            response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/task/list.jsp").include(request, response);
             
         } catch (Exception e) {
-            request.setAttribute("error", e);
-            request.setAttribute("title", "작업 목록조회 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            throw new ServletException(e);
         }
     }
 

@@ -38,13 +38,10 @@ public class ClassroomListServlet extends HttpServlet {
             List<Classroom> list = classroomDao.selectList();
             request.setAttribute("list", list);
             
-            response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/classroom/list.jsp").include(request, response);
+            request.setAttribute("viewUrl", "/classroom/list.jsp");
             
         } catch (Exception e) {
-            request.setAttribute("error", e);
-            request.setAttribute("title", "강의 목록조회 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            throw new ServletException(e);
         }
     }
 }

@@ -42,12 +42,10 @@ public class ClassroomAddServlet extends HttpServlet {
             classroom.setRoom(request.getParameter("room"));
             
             classroomDao.insert(classroom);
-            response.sendRedirect("list");
+            request.setAttribute("viewUrl", "redirect:list.do");
             
         } catch (Exception e) {
-            request.setAttribute("error", e);
-            request.setAttribute("title", "강의 등록 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            throw new ServletException(e);
         }
     }
     

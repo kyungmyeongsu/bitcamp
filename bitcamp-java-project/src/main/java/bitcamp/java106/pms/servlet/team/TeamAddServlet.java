@@ -43,12 +43,10 @@ public class TeamAddServlet extends HttpServlet {
             team.setEndDate(Date.valueOf(request.getParameter("endDate")));
             
             teamDao.insert(team);
-            response.sendRedirect("list");
+            request.setAttribute("viewUrl", "redirect:list.do");
             
         } catch (Exception e) {
-            request.setAttribute("error", e);
-            request.setAttribute("title", "팀 등록 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            throw new ServletException(e);
         }
     }
     
