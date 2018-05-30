@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
-import bitcamp.java106.pms.controller.PageController;
 import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.domain.Member;
+import web.RequestMapping;
 
 @Component("/member/add")
-public class MemberAddController implements PageController {
+public class MemberAddController {
 
     MemberDao memberDao;
     
@@ -19,8 +19,8 @@ public class MemberAddController implements PageController {
     }
     
     
-    @Override
-    public String service(
+    @RequestMapping
+    public String add(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         

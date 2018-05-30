@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
-import bitcamp.java106.pms.controller.PageController;
 import bitcamp.java106.pms.dao.TeamMemberDao;
 import bitcamp.java106.pms.domain.Member;
+import web.RequestMapping;
 
 @Component("/team/member/list")
-public class TeamMemberListController implements PageController {
+public class TeamMemberListController {
     
     TeamMemberDao teamMemberDao;
     
@@ -21,8 +21,8 @@ public class TeamMemberListController implements PageController {
     }
     
     
-    @Override
-    public String service(
+    @RequestMapping
+    public String list(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         

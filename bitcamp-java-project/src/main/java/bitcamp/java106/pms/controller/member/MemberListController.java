@@ -7,13 +7,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
-import bitcamp.java106.pms.controller.PageController;
 import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.domain.Member;
 import web.RequestMapping;
 
 @Component("/member/list")
-public class MemberListController implements PageController {
+public class MemberListController {
 
     MemberDao memberDao;
     
@@ -23,7 +22,7 @@ public class MemberListController implements PageController {
     
     
     @RequestMapping
-    public String service(
+    public String list(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         

@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
-import bitcamp.java106.pms.controller.PageController;
 import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamDao;
+import web.RequestMapping;
 
 @Component("/task/delete")
-public class TaskDeleteController implements PageController {
+public class TaskDeleteController {
     
     TeamDao teamDao;
     TaskDao taskDao;
@@ -22,8 +22,8 @@ public class TaskDeleteController implements PageController {
         this.taskDao = taskDao;
     }
     
-    @Override
-    public String service(
+    @RequestMapping
+    public String delete(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         

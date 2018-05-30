@@ -7,15 +7,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
-import bitcamp.java106.pms.controller.PageController;
 import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
 import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Team;
+import web.RequestMapping;
 
 @Component("/task/form")
-public class TaskFormController implements PageController {
+public class TaskFormController {
     
     TeamDao teamDao;
     TaskDao taskDao;
@@ -27,8 +27,8 @@ public class TaskFormController implements PageController {
         this.teamMemberDao = teamMemberDao;
     }
     
-    @Override
-    public String service(
+    @RequestMapping
+    public String form(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         

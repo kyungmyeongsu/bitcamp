@@ -5,11 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
-import bitcamp.java106.pms.controller.PageController;
 import bitcamp.java106.pms.dao.MemberDao;
+import web.RequestMapping;
 
 @Component("/member/delete")
-public class MemberDeleteController implements PageController {
+public class MemberDeleteController {
 
     MemberDao memberDao;
     
@@ -18,8 +18,8 @@ public class MemberDeleteController implements PageController {
     }
     
     
-    @Override
-    public String service(
+    @RequestMapping
+    public String delete(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         
