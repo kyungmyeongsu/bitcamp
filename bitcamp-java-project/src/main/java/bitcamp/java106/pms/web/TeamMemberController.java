@@ -1,9 +1,8 @@
-package bitcamp.java106.pms.controller.teammember;
+package bitcamp.java106.pms.web;
 
 import java.net.URLEncoder;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -12,29 +11,24 @@ import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
 import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Team;
-import web.RequestMapping;
 
-@Component("/team/member/add")
-public class TeamMemberAddController {
+@Component("/team/member")
+public class TeamMemberController {
     
     TeamDao teamDao;
     MemberDao memberDao;
     TeamMemberDao teamMemberDao;
     
-    public TeamMemberAddController(TeamDao teamDao, MemberDao memberDao, TeamMemberDao teamMemberDao) {
+    public TeamMemberController(TeamDao teamDao, MemberDao memberDao, TeamMemberDao teamMemberDao) {
         this.teamDao = teamDao;
         this.memberDao = memberDao;
         this.teamMemberDao = teamMemberDao;
     }
     
     
-    @RequestMapping
-    public String add(
-            HttpServletRequest request, 
-            HttpServletResponse response) throws Exception {
-        
-        String teamName = request.getParameter("teamName");
-        String memberId = request.getParameter("memberId");
+    @RequestMapping("/add")
+    public String add(@RequestParam("teamName") String teamName,
+                      @RequestParam("memberId") String memberId) throws Exception {
         
             Team team = teamDao.selectOne(teamName);
             if (team == null) {
@@ -50,6 +44,31 @@ public class TeamMemberAddController {
             teamMemberDao.insert(teamName, memberId);
             return "redirect:../view.do?name=" + 
                     URLEncoder.encode(teamName, "UTF-8");
+            
+    }
+    
+    @RequestMapping("/delete")
+    public String delete(@RequestParam("teamName") String teamName,
+                         @RequestParam("memberId") String memberId) throws Exception {
+        
+            int count = teamMemberDao.delete(teamName, memberId);
+            if (count == 0) {
+                throw new Exception("<p>해당 팀원이 존재하지 않습니다.</p>");
+            }
+            return "redirect:../view.do?name=" + 
+                    URLEncoder.encode(teamName, "UTF-8");
+            // 개발자가 요청이나 응답헤더를 직접 작성하여 값을 주고 받으로 한다면,
+            // URL 인코딩과 URL 디코딩을 손수 해 줘야 한다.
+            
+    }
+    
+    @RequestMapping("/list")
+    public String list(@RequestParam("name") String name,
+                       Map<String,Object> map) throws Exception {
+        
+            List<Member> members = teamMemberDao.selectListWithEmail(name);
+            map.put("members", members);
+            return "/team/member/list.jsp";
             
     }
     

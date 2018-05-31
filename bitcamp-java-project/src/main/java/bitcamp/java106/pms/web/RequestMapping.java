@@ -1,4 +1,4 @@
-package web;
+package bitcamp.java106.pms.web;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -7,4 +7,3 @@ import java.lang.annotation.RetentionPolicy;
 public @interface RequestMapping {
     String value() default "";
 }
-
