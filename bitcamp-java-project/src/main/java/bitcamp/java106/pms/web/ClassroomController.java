@@ -74,6 +74,18 @@ public class ClassroomController {
             
     }
     
+    // GlobalBindingInitializer에 등록 했기 때문에 이 클래스에서는 제외해도 된다.
+    /*
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(java.sql.Date.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                this.setValue(java.sql.Date.valueOf(text));
+            }
+        });
+    }
+    */
 }
 
 //ver 42 - JSP 적용
