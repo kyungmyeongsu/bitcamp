@@ -25,6 +25,9 @@ public class AuthController {
         this.memberDao = memberDao;
     }
     
+    @RequestMapping("/form")
+    public void form() {
+    }
     
     @RequestMapping("/login")
     public String login(
@@ -63,7 +66,7 @@ public class AuthController {
                 
                 if (refererUrl == null || 
                     refererUrl.contains("login.do") ||
-                    refererUrl.endsWith("/auth/form.jsp")) { 
+                    refererUrl.endsWith("auth/form")) { 
                     // 이전 페이지가 없다면 메인 화면으로 이동시킨다.
                     return "redirect:/"; // => "/java106-java-project"
                 } else { 
@@ -73,7 +76,7 @@ public class AuthController {
                 
             } else { // 로그인 실패!
                 session.invalidate();
-                return "/auth/fail.jsp";
+                return "auth/fail";
             }
     }
     
