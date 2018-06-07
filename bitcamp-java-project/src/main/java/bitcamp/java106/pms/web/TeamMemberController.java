@@ -81,12 +81,11 @@ public class TeamMemberController {
     }
     
     @RequestMapping("/list")
-    public String list(@RequestParam("name") String name,
+    public void list(@RequestParam("name") String name,
                        Map<String,Object> map) throws Exception {
         
             List<Member> members = teamMemberDao.selectListWithEmail(name);
             map.put("members", members);
-            return "/team/member/list.jsp";
             
     }
     

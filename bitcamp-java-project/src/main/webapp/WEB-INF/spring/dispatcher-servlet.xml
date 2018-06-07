@@ -7,24 +7,18 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
-        
+    
     <context:component-scan base-package="bitcamp.java106.pms"/>
     
-    <!-- Mybatis SqlSessionFactory 준비하기 -->
-    
-    <bean id="sqlSessionFactory" 
+    <bean id="sqlSessionFactory"
           class="org.mybatis.spring.SqlSessionFactoryBean">
-          
-          <property name="dataSource" ref="dataSource" />
-          <property name="mapperLocations" 
-                    value="classpath*:bitcamp/java106/pms/sql/*Mapper.xml" />
-          <property name="typeAliasesPackage" 
-                    value="bitcamp.java106.pms.domain"/>
+      <property name="dataSource" ref="dataSource" />
+      <property name="mapperLocations" 
+                value="classpath*:bitcamp/java106/pms/sql/*Mapper.xml" />  
+      <property name="typeAliasesPackage" 
+                value="bitcamp.java106.pms.domain"/>   
     </bean>
     
-    <!-- mybatis가 사용할 DataSource 객체 준비하기 
-         => BasicDataSource 클래스가 들어있는 apache-commons-dbcp 라이브러리를 추가해야한다.
-    -->
     <bean id="dataSource" 
           class="org.apache.commons.dbcp.BasicDataSource" 
           destroy-method="close">
@@ -34,10 +28,22 @@
         <property name="password" value="${jdbc.password}" />
     </bean>
     
-    <context:property-placeholder location="classpath:bitcamp/java106/pms/sql/jdbc.properties"/>
-    
+    <context:property-placeholder 
+        location="classpath:bitcamp/java106/pms/sql/jdbc.properties"/> 
+        
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="bitcamp.java106.pms.dao" />
-    </bean>
+    </bean>   
     
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
 </beans>
+
+
+
+
+
+

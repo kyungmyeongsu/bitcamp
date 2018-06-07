@@ -20,6 +20,13 @@ public class ClassroomController {
         this.classroomDao = classroomDao;
     }
     
+    @RequestMapping("/form")
+    public void form(/*Model model*/) {
+        // 입력 폼에서 사용할 데이터가 있다면 
+        // 이 requestHandler에서 준비하면 된다.
+        //model.addAttribute("프로퍼티명", "값");
+    }
+    
     @RequestMapping("/add")
     public String add(Classroom classroom) throws Exception {
         
@@ -39,12 +46,10 @@ public class ClassroomController {
     }
     
     @RequestMapping("/list")
-    public String list(Map<String,Object> map) throws Exception {
+    public void list(Map<String,Object> map) throws Exception {
         
             List<Classroom> list = classroomDao.selectList();
             map.put("list", list);
-            
-            return "/classroom/list.jsp";
             
     }
     
@@ -61,7 +66,7 @@ public class ClassroomController {
     }
     
     @RequestMapping("/view")
-    public String view(@RequestParam("no") int no, Map<String,Object> map) throws Exception {
+    public void view(@RequestParam("no") int no, Map<String,Object> map) throws Exception {
 
             Classroom classroom = classroomDao.selectOne(no);
     
@@ -69,8 +74,6 @@ public class ClassroomController {
                 throw new Exception("유효하지 않은 강의입니다.");
             }
             map.put("classroom", classroom);
-            
-            return "/classroom/view.jsp";
             
     }
     

@@ -20,6 +20,12 @@ public class MemberController {
         this.memberDao = memberDao;
     }
     
+    @RequestMapping("/form")
+    public void form(/*Model model*/) {
+        // 입력 폼에서 사용할 데이터가 있다면 
+        // 이 requestHandler에서 준비하면 된다.
+        //model.addAttribute("프로퍼티명", "값");
+    }
     
     @RequestMapping("/add")
     public String add(Member member) throws Exception {
@@ -41,12 +47,10 @@ public class MemberController {
     }
     
     @RequestMapping("/list")
-    public String list(Map<String,Object> map) throws Exception {
+    public void list(Map<String,Object> map) throws Exception {
         
             List<Member> list = memberDao.selectList();
             map.put("list", list);
-            return "/member/list.jsp";
-            
     }
     
     @RequestMapping("/update")
@@ -61,15 +65,13 @@ public class MemberController {
     }
     
     @RequestMapping("/view")
-    public String view(@RequestParam("id") String id, Map<String,Object> map) throws Exception {
+    public void view(@RequestParam("id") String id, Map<String,Object> map) throws Exception {
         
             Member member = memberDao.selectOne(id);
             if (member == null) {
                 throw new Exception("유효하지 않은 멤버 아이디입니다.");
             }
             map.put("member", member);
-            return "/member/view.jsp";
-               
     }
     
 }
