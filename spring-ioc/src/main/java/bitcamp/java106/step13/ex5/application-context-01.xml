@@ -10,41 +10,17 @@
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
-        
-    <context:component-scan base-package="bitcamp.java106.step13.ex4"/>
     
-    <!-- AOP 필터 객체 생성 -->
-    <bean id="myAdvice" class="bitcamp.java106.step13.ex4.MyAdvice"/>
+    <context:component-scan base-package="bitcamp.java106.step13.ex5"/>
     
-    <!-- AOP 적용 -->
-    <aop:config>
-        <!-- 어느 pointcut에 어떤 advice를 끼워 넣을지 설정한다. -->
-        <aop:aspect id="aspect1" ref="myAdvice">
-            
-            <!-- 필터를 끼워 넣을 위치를 지정한다. -->
-            <aop:pointcut id="pointcut1" 
-                expression="execution(* bitcamp.java106.step13.ex4.X.*(..))"/>
-                
-            <!--  -->
-            <aop:before 
-                pointcut="execution(* bitcamp.java106.step13.ex4.X.*(..)) and args(a,b)" 
-                method="doBefore"/>
-                
-            <!--  -->
-            <aop:after-returning 
-                pointcut="execution(* bitcamp.java106.step13.ex4.X.*(..))" 
-                method="doAfterReturning"
-                returning="returnValue"/>
-                
-            <!--  -->
-            <aop:after-throwing
-                pointcut="execution(* bitcamp.java106.step13.ex4.X.*(..))" 
-                method="doAfterThrowing"
-                throwing="error"/>
-            
-        </aop:aspect>
-    </aop:config>
+    <!-- 애노테이션으로 AOP를 설정하려면 AOP 관련 애노테이션을 처리해주는 객체를 등록해야 한다. 
+         다음 태그를 선언하면 AOP 관련 애노테이션을 처리해주는 객체를 자동으로 등록한다.
+    -->
+    <aop:aspectj-autoproxy/>
 </beans>
+
+
+
 
 
 

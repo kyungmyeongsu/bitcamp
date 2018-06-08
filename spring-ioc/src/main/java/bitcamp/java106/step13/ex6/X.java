@@ -1,4 +1,4 @@
-package bitcamp.java106.step13.ex5;
+package bitcamp.java106.step13.ex6;
 
 import org.springframework.stereotype.Component;
 
