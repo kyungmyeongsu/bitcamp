@@ -23,14 +23,14 @@ public class BoardController {
         this.boardDao = boardDao;
     }
     
-    @RequestMapping("/form")
+    @RequestMapping("form")
     public void form(/*Model model*/) {
         // 입력 폼에서 사용할 데이터가 있다면 
         // 이 requestHandler에서 준비하면 된다.
         //model.addAttribute("프로퍼티명", "값");
     }
     
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String add(Board board) throws Exception {
         
             boardDao.insert(board);
@@ -39,7 +39,7 @@ public class BoardController {
         
     }
     
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     public String delete(@RequestParam("no") int no) throws Exception {
             int count = boardDao.delete(no);
             if (count == 0) {
@@ -49,11 +49,14 @@ public class BoardController {
             return "redirect:list";
     }
     
-    @RequestMapping("/list{page}")
+    @RequestMapping("list{page}")
     public void list(
+            @PathVariable String page,
             @MatrixVariable(defaultValue="1") int pageNo,
             @MatrixVariable(defaultValue="3") int pageSize,
             Map<String,Object> map) throws Exception {
+        
+        System.out.printf("%s, %d, %d\n", page, pageNo, pageSize);
         
         HashMap<String,Object> params = new HashMap<>();
         params.put("startRowNo", (pageNo - 1) * pageSize);
@@ -64,7 +67,7 @@ public class BoardController {
             
     }
     
-    @RequestMapping("/update")
+    @RequestMapping("update")
     public String update(Board board) throws Exception {
             
             int count = boardDao.update(board);
