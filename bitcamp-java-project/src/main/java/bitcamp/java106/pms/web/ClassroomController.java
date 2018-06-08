@@ -66,7 +66,7 @@ public class ClassroomController {
             
     }
     
-    @RequestMapping("/view/{no}")
+    @RequestMapping("{no}")
     public String view(@PathVariable int no, Map<String,Object> map) throws Exception {
 
             Classroom classroom = classroomDao.selectOne(no);

@@ -28,14 +28,14 @@ public class TeamController {
         this.teamMemberDao = teamMemberDao;
     }
     
-    @RequestMapping("/form")
+    @RequestMapping("form")
     public void form(/*Model model*/) {
         // 입력 폼에서 사용할 데이터가 있다면 
         // 이 requestHandler에서 준비하면 된다.
         //model.addAttribute("프로퍼티명", "값");
     }
     
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String add(Team team) throws Exception {
         
             teamDao.insert(team);
@@ -43,7 +43,7 @@ public class TeamController {
             
     }
     
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     public String delete(@RequestParam("name") String name) throws Exception {
         
             HashMap<String,Object> params = new HashMap<>();
@@ -58,7 +58,7 @@ public class TeamController {
             
     }
     
-    @RequestMapping("/list")
+    @RequestMapping("list")
     public void list(Map<String,Object> map) throws Exception {
         
             List<Team> list = teamDao.selectList();
@@ -66,7 +66,7 @@ public class TeamController {
             
     }
     
-    @RequestMapping("/update")
+    @RequestMapping("update")
     public String update(Team team) throws Exception {
         
             int count = teamDao.update(team);
@@ -77,7 +77,7 @@ public class TeamController {
             
     }
     
-    @RequestMapping("/view/{name}")
+    @RequestMapping("{name}")
     public String view(@PathVariable String name, Map<String,Object> map) throws Exception {
         
             Team team = teamDao.selectOneWithMembers(name);

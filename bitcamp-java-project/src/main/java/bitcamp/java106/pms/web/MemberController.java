@@ -21,14 +21,14 @@ public class MemberController {
         this.memberDao = memberDao;
     }
     
-    @RequestMapping("/form")
+    @RequestMapping("form")
     public void form(/*Model model*/) {
         // 입력 폼에서 사용할 데이터가 있다면 
         // 이 requestHandler에서 준비하면 된다.
         //model.addAttribute("프로퍼티명", "값");
     }
     
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String add(Member member) throws Exception {
         
             memberDao.insert(member);
@@ -36,7 +36,7 @@ public class MemberController {
             
     }
     
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     public String delete(@RequestParam("id") String id) throws Exception {
         
             int count = memberDao.delete(id);
@@ -47,14 +47,14 @@ public class MemberController {
             
     }
     
-    @RequestMapping("/list")
+    @RequestMapping("list")
     public void list(Map<String,Object> map) throws Exception {
         
             List<Member> list = memberDao.selectList();
             map.put("list", list);
     }
     
-    @RequestMapping("/update")
+    @RequestMapping("update")
     public String update(Member member) throws Exception {
         
             int count = memberDao.update(member);
@@ -65,7 +65,7 @@ public class MemberController {
             
     }
     
-    @RequestMapping("/view/{id}")
+    @RequestMapping("{id}")
     public String view(@PathVariable String id, Map<String,Object> map) throws Exception {
         
             Member member = memberDao.selectOne(id);
