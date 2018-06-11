@@ -13,6 +13,7 @@ public interface MemberDao {
     int update(Member member);
     Member selectOne(String id);
     Member selectOneWithPassword(Map<String,Object> params);
+    int count(Map<String,Object> params);
 }
 
 //ver 41 - 로그인을 위한 selectOneWithPassword(id, password) 메서드 추가
