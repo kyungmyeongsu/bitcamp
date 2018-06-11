@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Exam01_list {
     public static void main(String[] args) throws Exception{
         ClassPathXmlApplicationContext iocContainer = 
-                new ClassPathXmlApplicationContext("step25/ex8/application-context.xml");
+                new ClassPathXmlApplicationContext("step25/ex9/application-context.xml");
         
         BoardDao boardDao = iocContainer.getBean(BoardDao.class);
         

@@ -10,6 +10,12 @@ public class Exam01_insert {
         ClassPathXmlApplicationContext iocContainer = 
                 new ClassPathXmlApplicationContext("step25/ex8/application-context.xml");
         
+        // 트랜젝션 관리자를 도입하지 않으면,
+        // DAO의 각 메서드 호출은 독립작업으로 간주한다.
+        // 즉 DAO 메서드를 호출할 때마다
+        // DataSource로부터 별도의 DB 커넥션을 받아서 사용한다.
+        // 따라서 DAO 메서드를 호출하다가 오류가 발생하더라도,
+        // 
         BoardDao boardDao = iocContainer.getBean(BoardDao.class);
         
         Board board =  new Board();
