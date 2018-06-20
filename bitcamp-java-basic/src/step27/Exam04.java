@@ -1,39 +1,46 @@
-// 람다(lambda) - 아규먼트로 람다 표현식 바로 사용하기
+// 람다(lambda) - 
 package step27;
-
-import step27.Exam01.Player;
 
 public class Exam04 {
     
-    static interface Player {
-        void play();
+    static interface Calculator {
+        int compute(int a, int b);
     }
     
-    static void testPlayer(Player player) {
-        player.play();
+    static void test(Calculator c) {
+        System.out.println(c.compute(100, 200));
     }
-
+    
     public static void main(String[] args) {
-        // 간단한 인터페이스 구현체 조차 다음과 같이 따로 정의하여 사용하면 매우 불편하다.
-        /*
-        Player player = new Player() {
-            @Override
-            public void play() {
-                System.out.println("실행!!!!!");
-            }
-        };
-        */
-        // 다음과 같이 아규먼트 부분에 바로 익명 클래스를 정의하는 코드를 두면
-        // 코드를 해석하기가 편하다.
-        testPlayer(new Player() {
-            @Override
-            public void play() {
-                System.out.println("실행!!!!!");
+        
+        // 파라미터와 리턴 값이 있는 메서드 구현하기
+        test((a, b) -> a + b);
+        
+        // 위의 람다 표현식은 다음 익명 클래스와 같은 의미다.
+        test(new Calculator() {
+            public int compute(int a, int b) {
+                return a + b;
             }
         });
-        
-        testPlayer(() -> System.out.println("실행!!!!!"));
-
+    
+        // 여러 문장을 실행하는 경우 블록 {}으로 감싸라!
+        test((a, b) -> {
+            int sum = 0;
+            for (int i = 0; i <= b; i++) {
+                sum += i;
+            }
+            return sum;
+        });
+        // 위의 람다 표현식은 다음 익명 클래스와 같은 의미다.
+        test(new Calculator() {
+            public int compute(int a, int b) {
+                int sum = 0;
+                for (int i = 0; i <= b; i++) {
+                    sum += i;
+                }
+                return sum;
+            }
+        });
     }
 
 }

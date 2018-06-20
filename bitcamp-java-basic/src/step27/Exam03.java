@@ -1,8 +1,6 @@
 // 람다(lambda) - 아규먼트로 람다 표현식 바로 사용하기
 package step27;
 
-import step27.Exam01.Player;
-
 public class Exam03 {
     
     static interface Player {
