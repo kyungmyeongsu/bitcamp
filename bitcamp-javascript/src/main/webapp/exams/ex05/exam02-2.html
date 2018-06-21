@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ex02-1</title>
+<title>ex02-2</title>
 </head>
 <body>
-<h1>DOM API - 태그의 콘텐트 알아내기</h1>
+<h1>DOM API - 태그의 콘텐트 설정하기 I</h1>
 <section>
   <article>
     <h1 id="header1" class="g1">자바스크립트</h1>
@@ -23,18 +23,16 @@
 
 // Element.innerHTML : DOMString
 // => Element() 생성자가 추가한 프로퍼티이다.
-// => 태그의 콘텐트를 HTML 코드 그래도 리턴한다.
+// => HTML 코드로 태그의 콘텐트를 설정할수 있다.
 //
 var e = document.querySelector("article:first-child > p");
-console.log(e);
-console.log(e.innerHTML);
-console.log("----------------------")
+e.innerHTML = "오호라 <b>비트캠프</b>입니다.<br> 반갑습니다.";
 
 // Node.textContent
 // => Node() 생성자가 추가한 프로퍼티이다.
-// => 태그의 콘텐트에서 HTML코드를 제거한 후 텍스트만 리턴한다.
-console.log(e.textContent)
-console.log("----------------------")
+// => 텍스트를 설정할 때 사용한다. 
+e = document.querySelector("article:last-child > p");
+e.textContent = "우헤헤 <b>비트캠프</b>입니다.<br> 반갑습니다.";
 
 </script>
 </body>
