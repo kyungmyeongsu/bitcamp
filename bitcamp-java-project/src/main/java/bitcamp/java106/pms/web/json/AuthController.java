@@ -32,7 +32,7 @@ public class AuthController {
     }
     
     @RequestMapping("/login")
-    public String login(
+    public Object login(
             @RequestParam("id") String id,
             @RequestParam("password") String password,
             @RequestParam(value="saveId",required=false) String saveId,
@@ -54,43 +54,22 @@ public class AuthController {
         }
         response.addCookie(cookie);
         
-            HashMap<String,Object> params = new HashMap<>();
-            params.put("id", id);
-            params.put("password", password);
-            
+            HashMap<String,Object> result = new HashMap<>();
             
             if (memberService.isExist(id, password)) { // 로그인 성공!
                 session.setAttribute("loginUser", memberService.get(id));
-
-                // 로그인 하기 전의 페이지로 이동한다.
-                String refererUrl = (String)session.getAttribute("refererUrl");
-                
-                if (refererUrl == null || 
-                    refererUrl.contains("login.do") ||
-                    refererUrl.endsWith("auth/form")) { 
-                    // 이전 페이지가 없다면 메인 화면으로 이동시킨다.
-                    return "redirect:/"; // => "/java106-java-project"
-                } else { 
-                    // 이전 페이지가 있다면 그 페이지로 이동시킨다.
-                    return "redirect:" + refererUrl;
-                }
-                
+                result.put("state", "success");
             } else { // 로그인 실패!
                 session.invalidate();
-                return "auth/fail";
+                result.put("state", "fail");
             }
+            return result;
     }
     
     @RequestMapping("/logout")
-    public String logout(
-            HttpServletRequest request,
-            HttpSession session) throws Exception {
-        
+    public void logout(HttpSession session) throws Exception {
         // 세션을 꺼내 무효화시킨다.
         session.invalidate();
-        
-        // 웹 애플리케이션의 시작 페이지로 가라고 웹브라우저에게 얘기한다.
-        return "redirect:/";
     }
 }
 
