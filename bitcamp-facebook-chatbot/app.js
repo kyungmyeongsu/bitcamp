@@ -36,7 +36,7 @@ const
 
 var options = {
 	key: fs.readFileSync('/home/ec2-user/custom.key'),
-	cert: fs.readFileSync('/home/ec2-user/www_kyungmyeongsu_com.crt');
+	cert: fs.readFileSync('/home/ec2-user/www_kyungmyeongsu_com.crt')
 };
 
 https.createServer(options, app).listen(1337, () => {
